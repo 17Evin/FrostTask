@@ -1,0 +1,2130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Savings - Frost Task</title>
+
+    <style>
+
+        /* ==============================
+           RESET
+        ============================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* ==============================
+           BODY
+        ============================== */
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf8ff,
+                    #f7fcff
+                );
+
+            color: #17324d;
+
+            min-height: 100vh;
+
+            line-height: 1.5;
+        }
+
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        header {
+            background: rgba(255, 255, 255, 0.92);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            padding: 18px 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid #cfeaf7;
+
+            box-shadow:
+                0 5px 20px
+                rgba(60, 140, 180, 0.10);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        /* ==============================
+           LOGO
+        ============================== */
+
+        .logo {
+            font-size: 26px;
+
+            font-weight: 800;
+
+            color: #168dcc;
+
+            white-space: nowrap;
+        }
+
+
+        /* ==============================
+           NAVIGATION
+        ============================== */
+
+        nav {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            flex-wrap: wrap;
+        }
+
+
+        nav a {
+            text-decoration: none;
+
+            color: #31566f;
+
+            padding: 9px 13px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        nav a:hover {
+            background: #e3f6ff;
+
+            color: #087db6;
+
+            transform: translateY(-1px);
+        }
+
+
+        nav a.active {
+            background: #dff4ff;
+
+            color: #087db6;
+        }
+
+
+        /* ==============================
+           MAIN CONTAINER
+        ============================== */
+
+        .container {
+            width: min(1100px, 92%);
+
+            margin: 35px auto 60px;
+        }
+
+
+        /* ==============================
+           PAGE TITLE
+        ============================== */
+
+        h1 {
+            font-size: 34px;
+
+            margin-bottom: 7px;
+
+            color: #17324d;
+        }
+
+
+        .subtitle {
+            color: #6b879b;
+
+            margin-bottom: 28px;
+
+            font-size: 15px;
+        }
+
+
+        /* ==============================
+           CARDS
+        ============================== */
+
+        .card {
+            background: rgba(255, 255, 255, 0.90);
+
+            border: 1px solid #d4edf8;
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            margin-bottom: 22px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(60, 140, 180, 0.10);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .card h2 {
+            margin-bottom: 19px;
+
+            font-size: 20px;
+
+            color: #17324d;
+        }
+
+
+        /* ==============================
+           FORM
+        ============================== */
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            color: #31566f;
+        }
+
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border:
+                1px solid #c9e5f3;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            color: #17324d;
+
+            background: #fafdff;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        input:hover,
+        textarea:hover {
+            border-color: #a9d9ec;
+        }
+
+
+        input:focus,
+        textarea:focus {
+            border-color: #43b7eb;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(67, 183, 235, 0.12);
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9aafbd;
+        }
+
+
+        textarea {
+            resize: vertical;
+
+            min-height: 90px;
+        }
+
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
+        button {
+            border: none;
+
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            background: #43b7eb;
+
+            color: white;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        button:hover {
+            background: #168dcc;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 12px
+                rgba(22, 141, 204, 0.18);
+        }
+
+
+        button:active {
+            transform: translateY(0);
+        }
+
+
+        button:focus-visible {
+            outline:
+                3px solid
+                rgba(67, 183, 235, 0.25);
+
+            outline-offset: 2px;
+        }
+
+
+        .withdraw-btn {
+            background: #e89565;
+        }
+
+
+        .withdraw-btn:hover {
+            background: #d97943;
+        }
+
+
+        .delete-btn {
+            background: #ff7b7b;
+        }
+
+
+        .delete-btn:hover {
+            background: #e85c5c;
+        }
+
+
+        /* ==============================
+           SUMMARY
+        ============================== */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .summary-box {
+            background:
+                rgba(255, 255, 255, 0.92);
+
+            border:
+                1px solid #d4edf8;
+
+            padding: 21px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(60, 140, 180, 0.10);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .summary-box:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(60, 140, 180, 0.13);
+        }
+
+
+        .summary-box p {
+            color: #7892a3;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .summary-box h2 {
+            color: #168dcc;
+
+            font-size: 23px;
+
+            word-break: break-word;
+        }
+
+
+        .saved-box {
+            border-color: #d2eadf;
+        }
+
+
+        .saved-box h2 {
+            color: #198754;
+        }
+
+
+        .remaining-box {
+            border-color: #f1dfc9;
+        }
+
+
+        .remaining-box h2 {
+            color: #e38a42;
+        }
+
+
+        /* ==============================
+           PROGRESS
+        ============================== */
+
+        .progress-section {
+            margin-top: 10px;
+        }
+
+
+        .progress-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #31566f;
+        }
+
+
+        #progressText {
+            color: #168dcc;
+        }
+
+
+        .progress-bar {
+            width: 100%;
+
+            height: 15px;
+
+            background: #e5f4fb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-fill {
+            height: 100%;
+
+            width: 0%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #43b7eb,
+                    #8ddcff
+                );
+
+            border-radius: 20px;
+
+            transition:
+                width 0.4s ease;
+        }
+
+
+        /* ==============================
+           TRANSACTION FORM
+        ============================== */
+
+        .transaction-form {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+        }
+
+
+        .transaction-form .full {
+            grid-column: 1 / -1;
+        }
+
+
+        /* ==============================
+           HISTORY
+        ============================== */
+
+        .history-item {
+            border:
+                1px solid #d9edf7;
+
+            border-radius: 14px;
+
+            padding: 16px;
+
+            margin-bottom: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fbfeff,
+                    #f5fbfe
+                );
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .history-item:hover {
+            border-color: #b9e2f2;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(60, 140, 180, 0.08);
+        }
+
+
+        .history-info {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .history-info strong {
+            display: block;
+
+            margin-bottom: 5px;
+
+            font-size: 15px;
+
+            word-break: break-word;
+        }
+
+
+        .deposit-title {
+            color: #198754;
+        }
+
+
+        .withdraw-title {
+            color: #d97943;
+        }
+
+
+        .history-info span {
+            display: block;
+
+            color: #6c8798;
+
+            font-size: 13px;
+
+            margin-top: 3px;
+
+            word-break: break-word;
+        }
+
+
+        .history-actions {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-end;
+
+            gap: 8px;
+
+            flex-shrink: 0;
+        }
+
+
+        .history-amount {
+            font-weight: 700;
+
+            font-size: 17px;
+
+            white-space: nowrap;
+        }
+
+
+        .deposit-amount {
+            color: #198754;
+        }
+
+
+        .withdraw-amount {
+            color: #d97943;
+        }
+
+
+        /* ==============================
+           EMPTY STATE
+        ============================== */
+
+        .empty {
+            text-align: center;
+
+            color: #7892a3;
+
+            padding: 25px 15px;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           INFO BOX
+        ============================== */
+
+        .info-box {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eefaff,
+                    #f5fcff
+                );
+
+            border-left:
+                4px solid #43b7eb;
+
+            padding: 14px 16px;
+
+            border-radius: 9px;
+
+            margin-top: 17px;
+
+            color: #52748a;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==============================
+           TABLET
+        ============================== */
+
+        @media (max-width: 850px) {
+
+            header {
+                flex-direction: column;
+
+                gap: 14px;
+
+                padding: 18px;
+            }
+
+
+            nav {
+                width: 100%;
+            }
+
+
+            nav a {
+                padding: 8px 10px;
+
+                font-size: 13px;
+            }
+
+
+            .container {
+                width: 94%;
+
+                margin-top: 28px;
+            }
+
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 650px) {
+
+            h1 {
+                font-size: 29px;
+            }
+
+
+            .card {
+                padding: 19px;
+
+                border-radius: 17px;
+            }
+
+
+            .transaction-form {
+                grid-template-columns: 1fr;
+            }
+
+
+            .transaction-form .full {
+                grid-column: auto;
+            }
+
+
+            .history-item {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .history-actions {
+                width: 100%;
+
+                flex-direction: row;
+
+                align-items: center;
+
+                justify-content: space-between;
+            }
+
+        }
+
+
+        /* ==============================
+           SMALL MOBILE
+        ============================== */
+
+        @media (max-width: 430px) {
+
+            header {
+                padding: 15px 12px;
+            }
+
+
+            .logo {
+                font-size: 23px;
+            }
+
+
+            nav {
+                gap: 3px;
+            }
+
+
+            nav a {
+                padding: 7px 8px;
+
+                font-size: 12px;
+            }
+
+
+            .container {
+                width: 94%;
+
+                margin-top: 22px;
+            }
+
+
+            h1 {
+                font-size: 26px;
+            }
+
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+
+            .summary-box {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+     HEADER
+============================== -->
+
+<header>
+
+    <div class="logo">
+        ❄️ Frost Task
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="weekly.html">
+            Weekly
+        </a>
+
+        <a href="finance.html">
+            Finance
+        </a>
+
+        <a href="savings.html" class="active">
+            Savings
+        </a>
+
+        <a href="work.html">
+            Work
+        </a>
+
+        <a href="alerts.html">
+            Alerts
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<div class="container">
+
+
+    <!-- ==============================
+         TITLE
+    ============================== -->
+
+    <h1>
+        Savings ❄️
+    </h1>
+
+
+    <p class="subtitle">
+        Set your goal and keep track of your savings.
+    </p>
+
+
+
+    <!-- ==============================
+         SAVINGS GOAL
+    ============================== -->
+
+    <div class="card">
+
+        <h2>
+            Savings Goal
+        </h2>
+
+
+        <div class="form-group">
+
+            <label for="goalName">
+                Goal Name
+            </label>
+
+            <input
+                type="text"
+                id="goalName"
+                placeholder="Example: New Laptop"
+                maxlength="100"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="targetAmount">
+                Target Amount (₹)
+            </label>
+
+            <input
+                type="number"
+                id="targetAmount"
+                placeholder="Example: 80000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="startingAmount">
+                Current Saved Amount (₹)
+            </label>
+
+            <input
+                type="number"
+                id="startingAmount"
+                placeholder="Example: 10000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="saveGoal()"
+        >
+            Save Savings Goal
+        </button>
+
+
+        <div class="info-box">
+
+            Your savings goal, target amount, and current saved
+            amount are independent from the Finance page.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         SUMMARY
+    ============================== -->
+
+    <div class="summary">
+
+
+        <div class="summary-box">
+
+            <p>
+                Target
+            </p>
+
+            <h2 id="targetDisplay">
+                ₹0
+            </h2>
+
+        </div>
+
+
+        <div class="summary-box saved-box">
+
+            <p>
+                Saved
+            </p>
+
+            <h2 id="savedDisplay">
+                ₹0
+            </h2>
+
+        </div>
+
+
+        <div class="summary-box remaining-box">
+
+            <p>
+                Remaining
+            </p>
+
+            <h2 id="remainingDisplay">
+                ₹0
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         PROGRESS
+    ============================== -->
+
+    <div class="card">
+
+        <h2 id="goalTitle">
+            Savings Progress
+        </h2>
+
+
+        <div class="progress-section">
+
+            <div class="progress-header">
+
+                <span>
+                    Progress
+                </span>
+
+                <span id="progressText">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         ADD MONEY
+    ============================== -->
+
+    <div class="card">
+
+        <h2>
+            Add Money
+        </h2>
+
+
+        <div class="transaction-form">
+
+
+            <div class="form-group">
+
+                <label for="depositAmount">
+                    Amount (₹)
+                </label>
+
+                <input
+                    type="number"
+                    id="depositAmount"
+                    placeholder="Example: 5000"
+                    min="0"
+                    step="0.01"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="depositDate">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="depositDate"
+                >
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label for="depositNote">
+                    Note
+                </label>
+
+                <textarea
+                    id="depositNote"
+                    placeholder="Example: Salary savings"
+                    maxlength="500"
+                ></textarea>
+
+            </div>
+
+
+            <div class="full">
+
+                <button
+                    type="button"
+                    onclick="addDeposit()"
+                >
+                    Add Money
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         WITHDRAW MONEY
+    ============================== -->
+
+    <div class="card">
+
+        <h2>
+            Withdraw Money
+        </h2>
+
+
+        <div class="transaction-form">
+
+
+            <div class="form-group">
+
+                <label for="withdrawAmount">
+                    Amount (₹)
+                </label>
+
+                <input
+                    type="number"
+                    id="withdrawAmount"
+                    placeholder="Example: 2000"
+                    min="0"
+                    step="0.01"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="withdrawDate">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="withdrawDate"
+                >
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label for="withdrawNote">
+                    Note
+                </label>
+
+                <textarea
+                    id="withdrawNote"
+                    placeholder="Example: Emergency expense"
+                    maxlength="500"
+                ></textarea>
+
+            </div>
+
+
+            <div class="full">
+
+                <button
+                    type="button"
+                    class="withdraw-btn"
+                    onclick="addWithdrawal()"
+                >
+                    Withdraw Money
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         HISTORY
+    ============================== -->
+
+    <div class="card">
+
+        <h2>
+            Savings History
+        </h2>
+
+        <div id="savingsHistory"></div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* ==========================================
+   LOAD DATA
+========================================== */
+
+let savingsData =
+    JSON.parse(
+        localStorage.getItem(
+            "frostSavingsData"
+        )
+    ) || {
+
+        goalName: "",
+
+        targetAmount: 0,
+
+        startingAmount: 0
+
+    };
+
+
+let transactions =
+    JSON.parse(
+        localStorage.getItem(
+            "frostSavingsTransactions"
+        )
+    ) || [];
+
+
+
+/* ==========================================
+   SAVE GOAL
+========================================== */
+
+function saveGoal() {
+
+    const goalName =
+        document.getElementById(
+            "goalName"
+        ).value.trim();
+
+
+    const targetAmount =
+        Number(
+            document.getElementById(
+                "targetAmount"
+            ).value
+        );
+
+
+    const startingAmount =
+        Number(
+            document.getElementById(
+                "startingAmount"
+            ).value
+        );
+
+
+    if (!goalName) {
+
+        alert(
+            "Please enter a savings goal name."
+        );
+
+        return;
+    }
+
+
+    if (
+        !Number.isFinite(targetAmount) ||
+        targetAmount < 0
+    ) {
+
+        alert(
+            "Please enter a valid target amount."
+        );
+
+        return;
+    }
+
+
+    if (
+        !Number.isFinite(startingAmount) ||
+        startingAmount < 0
+    ) {
+
+        alert(
+            "Please enter a valid saved amount."
+        );
+
+        return;
+    }
+
+
+    savingsData.goalName =
+        goalName;
+
+
+    savingsData.targetAmount =
+        targetAmount;
+
+
+    savingsData.startingAmount =
+        startingAmount;
+
+
+    localStorage.setItem(
+        "frostSavingsData",
+        JSON.stringify(
+            savingsData
+        )
+    );
+
+
+    updateSavings();
+
+
+    alert(
+        "Savings goal saved!"
+    );
+
+}
+
+
+
+/* ==========================================
+   GET CURRENT SAVED AMOUNT
+========================================== */
+
+function getSavedAmount() {
+
+    let amount =
+        Number(
+            savingsData.startingAmount
+        ) || 0;
+
+
+    transactions.forEach(
+        function(transaction) {
+
+            const transactionAmount =
+                Number(
+                    transaction.amount
+                );
+
+
+            if (
+                !Number.isFinite(
+                    transactionAmount
+                )
+            ) {
+                return;
+            }
+
+
+            if (
+                transaction.type === "deposit"
+            ) {
+
+                amount +=
+                    transactionAmount;
+
+            }
+
+
+            if (
+                transaction.type === "withdraw"
+            ) {
+
+                amount -=
+                    transactionAmount;
+
+            }
+
+        }
+    );
+
+
+    return Math.max(
+        amount,
+        0
+    );
+
+}
+
+
+
+/* ==========================================
+   ADD MONEY
+========================================== */
+
+function addDeposit() {
+
+    const amount =
+        Number(
+            document.getElementById(
+                "depositAmount"
+            ).value
+        );
+
+
+    const date =
+        document.getElementById(
+            "depositDate"
+        ).value;
+
+
+    const note =
+        document.getElementById(
+            "depositNote"
+        ).value.trim();
+
+
+    if (
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ) {
+
+        alert(
+            "Please enter a valid amount."
+        );
+
+        return;
+    }
+
+
+    if (!date) {
+
+        alert(
+            "Please select a date."
+        );
+
+        return;
+    }
+
+
+    transactions.push({
+
+        type: "deposit",
+
+        amount: amount,
+
+        date: date,
+
+        note: note
+
+    });
+
+
+    saveTransactions();
+
+
+    document.getElementById(
+        "depositAmount"
+    ).value = "";
+
+
+    document.getElementById(
+        "depositNote"
+    ).value = "";
+
+
+    updateSavings();
+
+}
+
+
+
+/* ==========================================
+   WITHDRAW MONEY
+========================================== */
+
+function addWithdrawal() {
+
+    const amount =
+        Number(
+            document.getElementById(
+                "withdrawAmount"
+            ).value
+        );
+
+
+    const date =
+        document.getElementById(
+            "withdrawDate"
+        ).value;
+
+
+    const note =
+        document.getElementById(
+            "withdrawNote"
+        ).value.trim();
+
+
+    if (
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ) {
+
+        alert(
+            "Please enter a valid amount."
+        );
+
+        return;
+    }
+
+
+    if (!date) {
+
+        alert(
+            "Please select a date."
+        );
+
+        return;
+    }
+
+
+    const currentSaved =
+        getSavedAmount();
+
+
+    if (amount > currentSaved) {
+
+        alert(
+            "You cannot withdraw more than your saved amount."
+        );
+
+        return;
+    }
+
+
+    transactions.push({
+
+        type: "withdraw",
+
+        amount: amount,
+
+        date: date,
+
+        note: note
+
+    });
+
+
+    saveTransactions();
+
+
+    document.getElementById(
+        "withdrawAmount"
+    ).value = "";
+
+
+    document.getElementById(
+        "withdrawNote"
+    ).value = "";
+
+
+    updateSavings();
+
+}
+
+
+
+/* ==========================================
+   DELETE TRANSACTION
+========================================== */
+
+function deleteTransaction(index) {
+
+    if (
+        !Number.isInteger(index) ||
+        index < 0 ||
+        index >= transactions.length
+    ) {
+        return;
+    }
+
+
+    const confirmDelete =
+        confirm(
+            "Delete this transaction?"
+        );
+
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    transactions.splice(
+        index,
+        1
+    );
+
+
+    saveTransactions();
+
+    updateSavings();
+
+}
+
+
+
+/* ==========================================
+   SAVE TRANSACTIONS
+========================================== */
+
+function saveTransactions() {
+
+    localStorage.setItem(
+        "frostSavingsTransactions",
+        JSON.stringify(
+            transactions
+        )
+    );
+
+}
+
+
+
+/* ==========================================
+   UPDATE SAVINGS
+========================================== */
+
+function updateSavings() {
+
+    const target =
+        Number(
+            savingsData.targetAmount
+        ) || 0;
+
+
+    const saved =
+        getSavedAmount();
+
+
+    const remaining =
+        Math.max(
+            target - saved,
+            0
+        );
+
+
+    document.getElementById(
+        "targetDisplay"
+    ).textContent =
+        formatMoney(
+            target
+        );
+
+
+    document.getElementById(
+        "savedDisplay"
+    ).textContent =
+        formatMoney(
+            saved
+        );
+
+
+    document.getElementById(
+        "remainingDisplay"
+    ).textContent =
+        formatMoney(
+            remaining
+        );
+
+
+    /* Goal title */
+
+    document.getElementById(
+        "goalTitle"
+    ).textContent =
+        savingsData.goalName
+            ? savingsData.goalName +
+              " Progress"
+            : "Savings Progress";
+
+
+    /* Progress */
+
+    let progress = 0;
+
+
+    if (target > 0) {
+
+        progress =
+            (
+                saved /
+                target
+            ) * 100;
+
+    }
+
+
+    progress =
+        Math.min(
+            Math.max(
+                progress,
+                0
+            ),
+            100
+        );
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        progress + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        Math.round(
+            progress
+        ) + "%";
+
+
+    renderHistory();
+
+}
+
+
+
+/* ==========================================
+   RENDER HISTORY
+========================================== */
+
+function renderHistory() {
+
+    const history =
+        document.getElementById(
+            "savingsHistory"
+        );
+
+
+    if (
+        transactions.length === 0
+    ) {
+
+        history.innerHTML = `
+
+            <div class="empty">
+                No savings transactions yet.
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    history.innerHTML = "";
+
+
+    const sorted =
+        transactions
+            .map(
+                function(
+                    transaction,
+                    index
+                ) {
+
+                    return {
+
+                        transaction:
+                            transaction,
+
+                        index:
+                            index
+
+                    };
+
+                }
+            )
+            .reverse();
+
+
+    sorted.forEach(
+        function(item) {
+
+            const transaction =
+                item.transaction;
+
+
+            const index =
+                item.index;
+
+
+            const isDeposit =
+                transaction.type ===
+                "deposit";
+
+
+            const titleClass =
+                isDeposit
+                    ? "deposit-title"
+                    : "withdraw-title";
+
+
+            const amountClass =
+                isDeposit
+                    ? "deposit-amount"
+                    : "withdraw-amount";
+
+
+            const sign =
+                isDeposit
+                    ? "+"
+                    : "-";
+
+
+            const title =
+                isDeposit
+                    ? "Money Added"
+                    : "Money Withdrawn";
+
+
+            const historyItem =
+                document.createElement(
+                    "div"
+                );
+
+
+            historyItem.className =
+                "history-item";
+
+
+            historyItem.innerHTML = `
+
+                <div class="history-info">
+
+                    <strong class="${titleClass}">
+                        ${title}
+                    </strong>
+
+                    <span>
+                        Date:
+                        ${formatDate(
+                            transaction.date
+                        )}
+                    </span>
+
+                    ${
+                        transaction.note
+                            ? `
+                                <span>
+                                    Note:
+                                    ${escapeHTML(
+                                        transaction.note
+                                    )}
+                                </span>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+
+                <div class="history-actions">
+
+                    <div
+                        class="
+                            history-amount
+                            ${amountClass}
+                        "
+                    >
+                        ${sign}${formatMoney(
+                            transaction.amount
+                        )}
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="delete-btn"
+                        onclick="
+                            deleteTransaction(
+                                ${index}
+                            )
+                        "
+                        aria-label="Delete transaction"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            `;
+
+
+            history.appendChild(
+                historyItem
+            );
+
+        }
+    );
+
+}
+
+
+
+/* ==========================================
+   FORMAT MONEY
+========================================== */
+
+function formatMoney(amount) {
+
+    return new Intl.NumberFormat(
+        "en-IN",
+        {
+            style: "currency",
+
+            currency: "INR",
+
+            maximumFractionDigits: 2
+        }
+    ).format(
+        Number(amount) || 0
+    );
+
+}
+
+
+
+/* ==========================================
+   FORMAT DATE
+========================================== */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "Unknown date";
+    }
+
+
+    const date =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "Invalid date";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+
+            month: "short",
+
+            year: "numeric"
+        }
+    );
+
+}
+
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        String(text);
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* ==========================================
+   GET LOCAL TODAY
+========================================== */
+
+function getTodayDate() {
+
+    const today =
+        new Date();
+
+
+    return (
+        today.getFullYear() +
+        "-" +
+        String(
+            today.getMonth() + 1
+        ).padStart(2, "0") +
+        "-" +
+        String(
+            today.getDate()
+        ).padStart(2, "0")
+    );
+
+}
+
+
+
+/* ==========================================
+   LOAD FORM
+========================================== */
+
+function loadSavingsForm() {
+
+    document.getElementById(
+        "goalName"
+    ).value =
+        savingsData.goalName || "";
+
+
+    document.getElementById(
+        "targetAmount"
+    ).value =
+        savingsData.targetAmount || "";
+
+
+    document.getElementById(
+        "startingAmount"
+    ).value =
+        savingsData.startingAmount || "";
+
+
+    const today =
+        getTodayDate();
+
+
+    document.getElementById(
+        "depositDate"
+    ).value =
+        today;
+
+
+    document.getElementById(
+        "withdrawDate"
+    ).value =
+        today;
+
+}
+
+
+
+/* ==========================================
+   INITIAL LOAD
+========================================== */
+
+loadSavingsForm();
+
+updateSavings();
+
+
+</script>
+
+
+</body>
+</html>
+

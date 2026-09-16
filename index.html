@@ -1,0 +1,4109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Frost Task ❄️</title>
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f5f9ff;
+            --card: #ffffff;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --ice: #e0f2fe;
+            --ice-light: #f0f9ff;
+            --border: #dbeafe;
+            --text: #172033;
+            --muted: #64748b;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --shadow: 0 8px 30px rgba(37, 99, 235, 0.08);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, #e0f2fe 0, transparent 30%),
+                radial-gradient(circle at top right, #dbeafe 0, transparent 25%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid var(--border);
+
+            padding: 16px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: var(--primary);
+            white-space: nowrap;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            font-size: 14px;
+
+            padding: 8px 12px;
+            border-radius: 9px;
+
+            transition: 0.2s ease;
+        }
+
+        nav a:hover {
+            background: var(--ice);
+            color: var(--primary);
+        }
+
+        nav a[href="index.html"] {
+            background: var(--ice);
+            color: var(--primary);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        main {
+            width: min(1250px, calc(100% - 30px));
+            margin: auto;
+            padding: 32px 0 70px;
+        }
+
+        .welcome {
+            margin-bottom: 24px;
+        }
+
+        .welcome h1 {
+            font-size: 32px;
+            color: #172033;
+            margin-bottom: 5px;
+            letter-spacing: -0.7px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           FROST HERO
+        ===================================================== */
+
+        .frost-card {
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dff6ff,
+                    #ffffff 60%,
+                    #eff6ff
+                );
+
+            border: 1px solid #bae6fd;
+            border-radius: 20px;
+
+            padding: 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+            flex-wrap: wrap;
+
+            margin-bottom: 24px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .frost-card::before {
+            content: "❄️";
+            position: absolute;
+            right: 145px;
+            top: -18px;
+            font-size: 90px;
+            opacity: 0.07;
+        }
+
+        .frost-card h2 {
+            color: var(--primary);
+            font-size: 21px;
+            margin-bottom: 4px;
+        }
+
+        .frost-card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .frost-count {
+            min-width: 100px;
+            text-align: center;
+
+            font-size: 44px;
+            font-weight: 800;
+            color: var(--primary);
+
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid #bfdbfe;
+            border-radius: 16px;
+
+            padding: 7px 18px;
+        }
+
+
+        /* =====================================================
+           STATISTICS
+        ===================================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+
+            padding: 18px;
+
+            box-shadow: var(--shadow);
+
+            transition: transform 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(37, 99, 235, 0.11);
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--ice-light);
+            border-radius: 11px;
+
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 25px;
+            font-weight: 800;
+            margin-top: 2px;
+            color: var(--text);
+        }
+
+
+        /* =====================================================
+           MONTHLY REWARD
+        ===================================================== */
+
+        .reward-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            padding: 22px;
+            margin-bottom: 24px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .reward-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            flex-wrap: wrap;
+
+            margin-bottom: 13px;
+        }
+
+        .reward-header h2 {
+            font-size: 20px;
+        }
+
+        .reward-status {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--ice);
+            padding: 6px 10px;
+            border-radius: 20px;
+        }
+
+        .reward-progress {
+            height: 11px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .reward-progress-fill {
+            height: 100%;
+            width: 0%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #2563eb
+                );
+
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+
+        .reward-message {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .snowfall {
+            display: none;
+
+            margin-top: 18px;
+            padding: 15px;
+
+            text-align: center;
+
+            background: var(--ice-light);
+            border: 1px solid #bae6fd;
+            border-radius: 14px;
+
+            font-size: 27px;
+
+            animation: snowfallGlow 2s infinite alternate;
+        }
+
+        .snowfall.show {
+            display: block;
+        }
+
+        .snowfall strong {
+            display: inline-block;
+            margin: 5px 0;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        @keyframes snowfallGlow {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(5px);
+            }
+        }
+
+
+        /* =====================================================
+           CALENDAR
+        ===================================================== */
+
+        .calendar-container {
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+
+            padding: 22px;
+            margin-bottom: 24px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            flex-wrap: wrap;
+
+            margin-bottom: 18px;
+        }
+
+        .calendar-header h2 {
+            font-size: 21px;
+        }
+
+        .calendar-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .calendar-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .calendar-buttons button,
+        .today-button {
+            border: 1px solid #bfdbfe;
+
+            background: var(--ice);
+            color: var(--primary);
+
+            border-radius: 9px;
+
+            min-height: 37px;
+            padding: 7px 12px;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .calendar-buttons button {
+            width: 38px;
+            font-size: 18px;
+        }
+
+        .calendar-buttons button:hover,
+        .today-button:hover {
+            background: #bae6fd;
+            transform: translateY(-1px);
+        }
+
+        .calendar-filter {
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+
+            padding: 8px 10px;
+
+            background: white;
+            color: #334155;
+
+            outline: none;
+        }
+
+        .calendar-filter:focus {
+            border-color: var(--primary);
+        }
+
+        .weekdays,
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 7px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: 700;
+            color: #64748b;
+
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        .day {
+            min-height: 82px;
+
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+
+            padding: 9px;
+
+            cursor: pointer;
+            position: relative;
+
+            background: white;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .day:hover {
+            border-color: #93c5fd;
+            background: #f8fbff;
+            transform: translateY(-2px);
+        }
+
+        .day.empty {
+            border: none;
+            background: transparent;
+            cursor: default;
+        }
+
+        .day.selected {
+            border: 2px solid var(--primary);
+            background: #eff6ff;
+        }
+
+        .day.today {
+            box-shadow: inset 0 0 0 2px #93c5fd;
+        }
+
+        .day.has-tasks {
+            background: #fbfdff;
+        }
+
+        .day-number {
+            font-weight: 700;
+        }
+
+        .day-task-count {
+            margin-top: 7px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .frost-mark {
+            position: absolute;
+            right: 7px;
+            bottom: 6px;
+            font-size: 18px;
+        }
+
+        .reminder-mark {
+            position: absolute;
+            left: 7px;
+            bottom: 6px;
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           CALENDAR LEGEND
+        ===================================================== */
+
+        .calendar-legend {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+
+            margin-top: 14px;
+
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           TASK SECTION
+        ===================================================== */
+
+        .task-section {
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            flex-wrap: wrap;
+
+            margin-bottom: 20px;
+        }
+
+        .task-header h2 {
+            font-size: 22px;
+        }
+
+        .add-button {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #3b82f6
+                );
+
+            color: white;
+
+            padding: 11px 18px;
+            border-radius: 10px;
+
+            font-weight: 700;
+
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+
+            transition: 0.2s ease;
+        }
+
+        .add-button:hover {
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #2563eb
+                );
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #2563eb
+                );
+
+            border-radius: 20px;
+
+            transition: width 0.3s;
+        }
+
+
+        /* =====================================================
+           TASK CARD
+        ===================================================== */
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .task-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+
+            padding: 16px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
+
+            background: white;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            border-color: #bfdbfe;
+            box-shadow: 0 7px 20px rgba(37, 99, 235, 0.07);
+        }
+
+        .task-card.completed {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .task-checkbox {
+            width: 22px;
+            height: 22px;
+
+            cursor: pointer;
+            flex-shrink: 0;
+
+            accent-color: var(--primary);
+        }
+
+        .task-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .task-name {
+            font-weight: 700;
+            font-size: 16px;
+            word-break: break-word;
+        }
+
+        .task-card.completed .task-name {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-top: 7px;
+        }
+
+        .badge {
+            padding: 4px 8px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .priority-high {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .priority-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .priority-low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .repeat-badge {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .reminder-badge {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .task-notes {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .task-actions button {
+            border: none;
+            border-radius: 8px;
+
+            padding: 8px 10px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .edit-button {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .edit-button:hover {
+            background: #bfdbfe;
+        }
+
+        .delete-button {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .delete-button:hover {
+            background: #fecaca;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty-state {
+            text-align: center;
+            padding: 45px 20px;
+            color: var(--muted);
+        }
+
+        .empty-state-icon {
+            width: 70px;
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 12px;
+
+            background: var(--ice-light);
+            border: 1px solid #dbeafe;
+            border-radius: 50%;
+
+            font-size: 34px;
+        }
+
+        .empty-state h3 {
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(15, 23, 42, 0.58);
+            backdrop-filter: blur(4px);
+
+            display: none;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            border: 1px solid #dbeafe;
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow: 0 25px 70px rgba(15, 23, 42, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 21px;
+        }
+
+        .close-button {
+            border: none;
+
+            background: #f1f5f9;
+            color: #475569;
+
+            width: 35px;
+            height: 35px;
+
+            border-radius: 9px;
+
+            font-size: 20px;
+
+            transition: 0.2s ease;
+        }
+
+        .close-button:hover {
+            background: #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: 700;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+
+            padding: 11px;
+
+            background: white;
+            color: #1e293b;
+
+            outline: none;
+
+            transition: 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #60a5fa;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(96, 165, 250, 0.13);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-help {
+            display: block;
+
+            margin-top: 5px;
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .cancel-button {
+            border: 1px solid #e2e8f0;
+
+            background: #f8fafc;
+            color: #475569;
+
+            padding: 11px 18px;
+            border-radius: 9px;
+
+            font-weight: 600;
+        }
+
+        .cancel-button:hover {
+            background: #f1f5f9;
+        }
+
+        .save-button {
+            border: none;
+
+            background: var(--primary);
+            color: white;
+
+            padding: 11px 18px;
+            border-radius: 9px;
+
+            font-weight: 700;
+        }
+
+        .save-button:hover {
+            background: var(--primary-dark);
+        }
+
+
+        /* =====================================================
+           NOTIFICATION
+        ===================================================== */
+
+        .notification-box {
+            position: fixed;
+
+            right: 20px;
+            bottom: 20px;
+
+            width: min(350px, calc(100% - 40px));
+
+            background: white;
+
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid var(--primary);
+
+            border-radius: 14px;
+
+            padding: 15px 18px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(15, 23, 42, 0.15);
+
+            display: none;
+
+            z-index: 2000;
+        }
+
+        .notification-box.show {
+            display: block;
+            animation: notificationSlide 0.3s ease;
+        }
+
+        .notification-box strong {
+            display: block;
+
+            color: var(--primary);
+
+            margin-bottom: 3px;
+        }
+
+        .notification-box span {
+            color: #475569;
+            font-size: 14px;
+        }
+
+        @keyframes notificationSlide {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 15px;
+            }
+
+            header nav {
+                gap: 4px;
+            }
+
+            nav a {
+                font-size: 12px;
+                padding: 7px 8px;
+            }
+
+            main {
+                width: calc(100% - 20px);
+                padding: 24px 0 50px;
+            }
+
+            .welcome h1 {
+                font-size: 27px;
+            }
+
+            .calendar-container,
+            .task-section {
+                padding: 16px;
+            }
+
+            .day {
+                min-height: 68px;
+                padding: 7px;
+            }
+
+            .weekday {
+                font-size: 10px;
+                padding: 6px 2px;
+            }
+
+            .day-task-count {
+                font-size: 9px;
+            }
+
+            .frost-mark {
+                font-size: 15px;
+                right: 4px;
+                bottom: 4px;
+            }
+
+            .reminder-mark {
+                font-size: 13px;
+                left: 4px;
+                bottom: 4px;
+            }
+
+            .task-card {
+                align-items: flex-start;
+            }
+
+            .task-actions {
+                flex-direction: column;
+            }
+
+            .task-actions button {
+                font-size: 11px;
+                padding: 7px 8px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            header {
+                align-items: flex-start;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            header nav {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 9px;
+            }
+
+            .stat-card {
+                padding: 13px;
+            }
+
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+
+            .stat-value {
+                font-size: 21px;
+            }
+
+            .frost-card {
+                padding: 18px;
+            }
+
+            .frost-count {
+                width: 100%;
+                font-size: 35px;
+            }
+
+            .calendar-header {
+                align-items: flex-start;
+            }
+
+            .calendar-controls {
+                width: 100%;
+            }
+
+            .calendar-filter {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .task-header {
+                align-items: flex-start;
+            }
+
+            .add-button {
+                width: 100%;
+            }
+
+            .task-card {
+                flex-wrap: wrap;
+            }
+
+            .task-content {
+                width: calc(100% - 40px);
+            }
+
+            .task-actions {
+                width: 100%;
+                flex-direction: row;
+                padding-left: 36px;
+            }
+
+            .task-actions button {
+                flex: 1;
+            }
+
+            .modal {
+                padding: 10px;
+            }
+
+            .modal-content {
+                padding: 18px;
+            }
+
+            .modal-actions {
+                flex-direction: column-reverse;
+            }
+
+            .modal-actions button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        ❄️ Frost Task
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="weekly.html">
+            Weekly
+        </a>
+
+        <a href="finance.html">
+            Finance
+        </a>
+
+        <a href="savings.html">
+            Savings
+        </a>
+
+        <a href="work.html">
+            Work
+        </a>
+
+        <a href="alerts.html">
+            Alerts
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+    <section class="welcome">
+
+        <h1>
+            Welcome to Frost Task ❄️
+        </h1>
+
+        <p>
+            Organize your tasks, build your Frost and stay consistent.
+        </p>
+
+    </section>
+
+
+    <section class="frost-card">
+
+        <div>
+
+            <h2>
+                ❄️ Frost Days Completed
+            </h2>
+
+            <p>
+                Complete every task on a day to create a Frost day.
+            </p>
+
+        </div>
+
+        <div
+            class="frost-count"
+            id="frostCount"
+        >
+            0
+        </div>
+
+    </section>
+
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <div class="stat-label">
+                Total Tasks
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalTasksStat"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✅
+            </div>
+
+            <div class="stat-label">
+                Completed
+            </div>
+
+            <div
+                class="stat-value"
+                id="completedTasksStat"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⏳
+            </div>
+
+            <div class="stat-label">
+                Pending
+            </div>
+
+            <div
+                class="stat-value"
+                id="pendingTasksStat"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📈
+            </div>
+
+            <div class="stat-label">
+                Completion Rate
+            </div>
+
+            <div
+                class="stat-value"
+                id="completionRateStat"
+            >
+                0%
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="reward-card">
+
+        <div class="reward-header">
+
+            <h2>
+                ❄️ Monthly Frost Reward
+            </h2>
+
+            <span
+                class="reward-status"
+                id="rewardStatus"
+            >
+                0 / 30 Frost Days
+            </span>
+
+        </div>
+
+        <div class="reward-progress">
+
+            <div
+                class="reward-progress-fill"
+                id="rewardProgressFill"
+            ></div>
+
+        </div>
+
+        <p
+            class="reward-message"
+            id="rewardMessage"
+        >
+            Complete all tasks each day to build your monthly Frost.
+        </p>
+
+        <div
+            class="snowfall"
+            id="snowfall"
+        >
+            ❄️ ❄️ ❄️ ❄️ ❄️
+            <br>
+
+            <strong>
+                Snowfall Reward Unlocked!
+            </strong>
+
+            <br>
+            ❄️ ❄️ ❄️ ❄️ ❄️
+        </div>
+
+    </section>
+
+
+    <section class="calendar-container">
+
+        <div class="calendar-header">
+
+            <h2 id="calendarTitle">
+                Month Year
+            </h2>
+
+            <div class="calendar-controls">
+
+                <select
+                    class="calendar-filter"
+                    id="calendarFilter"
+                >
+
+                    <option value="all">
+                        All Days
+                    </option>
+
+                    <option value="tasks">
+                        Days With Tasks
+                    </option>
+
+                    <option value="frost">
+                        Frost Days
+                    </option>
+
+                    <option value="reminders">
+                        Reminder Days
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="today-button"
+                    id="todayButton"
+                    type="button"
+                >
+                    Today
+                </button>
+
+
+                <div class="calendar-buttons">
+
+                    <button
+                        type="button"
+                        id="previousMonthButton"
+                    >
+                        ‹
+                    </button>
+
+                    <button
+                        type="button"
+                        id="nextMonthButton"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="weekdays">
+
+            <div class="weekday">Sun</div>
+            <div class="weekday">Mon</div>
+            <div class="weekday">Tue</div>
+            <div class="weekday">Wed</div>
+            <div class="weekday">Thu</div>
+            <div class="weekday">Fri</div>
+            <div class="weekday">Sat</div>
+
+        </div>
+
+
+        <div
+            class="calendar"
+            id="calendar"
+        ></div>
+
+
+        <div class="calendar-legend">
+
+            <span>
+                ❄️ Frost Day
+            </span>
+
+            <span>
+                🔔 Reminder
+            </span>
+
+            <span>
+                📋 Tasks
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <section class="task-section">
+
+        <div class="task-header">
+
+            <h2 id="selectedDateTitle">
+                Today's Tasks
+            </h2>
+
+            <button
+                class="add-button"
+                id="addTaskButton"
+                type="button"
+            >
+                + Add Task
+            </button>
+
+        </div>
+
+
+        <div class="progress-container">
+
+            <div class="progress-info">
+
+                <span>
+                    Daily Progress
+                </span>
+
+                <span id="progressText">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="task-list"
+            id="taskList"
+        ></div>
+
+
+        <div
+            class="empty-state"
+            id="emptyState"
+        >
+
+            <div class="empty-state-icon">
+                📝
+            </div>
+
+            <h3>
+                No tasks for this day
+            </h3>
+
+            <p>
+                Add your first task and start building your Frost.
+            </p>
+
+            <br>
+
+            <button
+                class="add-button"
+                id="emptyAddButton"
+                type="button"
+            >
+                + Add Task
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div
+    class="modal"
+    id="taskModal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Add Task
+            </h2>
+
+            <button
+                class="close-button"
+                id="closeModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <div class="form-group">
+
+                <label for="taskName">
+                    Task Name
+                </label>
+
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="Example: Complete Python assignment"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="taskCategory">
+                    Category
+                </label>
+
+                <select id="taskCategory">
+
+                    <option value="Personal">
+                        Personal
+                    </option>
+
+                    <option value="Home">
+                        Home
+                    </option>
+
+                    <option value="Work">
+                        Work
+                    </option>
+
+                    <option value="Interview">
+                        Interview
+                    </option>
+
+                    <option value="Study">
+                        Study
+                    </option>
+
+                    <option value="Health">
+                        Health
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="taskPriority">
+                    Priority
+                </label>
+
+                <select id="taskPriority">
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                    <option value="Medium" selected>
+                        Medium
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="taskTime">
+                    Task Time
+                </label>
+
+                <input
+                    type="time"
+                    id="taskTime"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="taskReminder">
+                    Reminder
+                </label>
+
+                <input
+                    type="time"
+                    id="taskReminder"
+                >
+
+                <small class="form-help">
+                    Keep this page open for in-page/browser reminders.
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="taskRepeat">
+                    Repeat
+                </label>
+
+                <select id="taskRepeat">
+
+                    <option value="none">
+                        Does not repeat
+                    </option>
+
+                    <option value="daily">
+                        Daily
+                    </option>
+
+                    <option value="weekly">
+                        Weekly
+                    </option>
+
+                    <option value="monthly">
+                        Monthly
+                    </option>
+
+                </select>
+
+                <small class="form-help">
+                    Repeating tasks are created for future dates.
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="taskNotes">
+                    Notes
+                </label>
+
+                <textarea
+                    id="taskNotes"
+                    placeholder="Add notes about this task..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancelTask"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Save Task
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div
+    class="notification-box"
+    id="notificationBox"
+>
+
+    <strong id="notificationTitle">
+        🔔 Frost Task Reminder
+    </strong>
+
+    <span id="notificationMessage">
+        You have a task reminder.
+    </span>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   FROST TASK — DASHBOARD
+========================================================= */
+
+let tasks = {};
+
+let selectedDate = new Date();
+
+let currentMonth =
+    new Date().getMonth();
+
+let currentYear =
+    new Date().getFullYear();
+
+let editingIndex = null;
+
+let calendarFilter = "all";
+
+let reminderCheckInterval = null;
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const addTaskButton =
+    document.getElementById("addTaskButton");
+
+const emptyAddButton =
+    document.getElementById("emptyAddButton");
+
+const taskModal =
+    document.getElementById("taskModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const cancelTask =
+    document.getElementById("cancelTask");
+
+const taskForm =
+    document.getElementById("taskForm");
+
+const taskList =
+    document.getElementById("taskList");
+
+const emptyState =
+    document.getElementById("emptyState");
+
+const frostCount =
+    document.getElementById("frostCount");
+
+const calendar =
+    document.getElementById("calendar");
+
+const calendarTitle =
+    document.getElementById("calendarTitle");
+
+const selectedDateTitle =
+    document.getElementById("selectedDateTitle");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const progressText =
+    document.getElementById("progressText");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const calendarFilterElement =
+    document.getElementById("calendarFilter");
+
+const todayButton =
+    document.getElementById("todayButton");
+
+const previousMonthButton =
+    document.getElementById("previousMonthButton");
+
+const nextMonthButton =
+    document.getElementById("nextMonthButton");
+
+
+/* =========================================================
+   FORM FIELDS
+========================================================= */
+
+const taskName =
+    document.getElementById("taskName");
+
+const taskCategory =
+    document.getElementById("taskCategory");
+
+const taskPriority =
+    document.getElementById("taskPriority");
+
+const taskTime =
+    document.getElementById("taskTime");
+
+const taskReminder =
+    document.getElementById("taskReminder");
+
+const taskRepeat =
+    document.getElementById("taskRepeat");
+
+const taskNotes =
+    document.getElementById("taskNotes");
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+const totalTasksStat =
+    document.getElementById("totalTasksStat");
+
+const completedTasksStat =
+    document.getElementById("completedTasksStat");
+
+const pendingTasksStat =
+    document.getElementById("pendingTasksStat");
+
+const completionRateStat =
+    document.getElementById("completionRateStat");
+
+
+/* =========================================================
+   REWARD
+========================================================= */
+
+const rewardStatus =
+    document.getElementById("rewardStatus");
+
+const rewardProgressFill =
+    document.getElementById("rewardProgressFill");
+
+const rewardMessage =
+    document.getElementById("rewardMessage");
+
+const snowfall =
+    document.getElementById("snowfall");
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+const notificationBox =
+    document.getElementById("notificationBox");
+
+const notificationTitle =
+    document.getElementById("notificationTitle");
+
+const notificationMessage =
+    document.getElementById("notificationMessage");
+
+
+/* =========================================================
+   LOAD TASKS
+========================================================= */
+
+function loadTasks() {
+
+    const savedTasks =
+        localStorage.getItem("frostTasks");
+
+    if (!savedTasks) {
+
+        tasks = {};
+
+        return;
+
+    }
+
+    try {
+
+        tasks =
+            JSON.parse(savedTasks);
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not load Frost tasks.",
+            error
+        );
+
+        tasks = {};
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE TASKS
+========================================================= */
+
+function saveTasks() {
+
+    localStorage.setItem(
+        "frostTasks",
+        JSON.stringify(tasks)
+    );
+
+}
+
+
+/* =========================================================
+   DATE KEY
+========================================================= */
+
+function getDateKey(date) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================================
+   PARSE DATE KEY
+========================================================= */
+
+function parseDateKey(key) {
+
+    const parts =
+        key.split("-").map(Number);
+
+    return new Date(
+        parts[0],
+        parts[1] - 1,
+        parts[2]
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(date) {
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   REPEAT LABEL
+========================================================= */
+
+function getRepeatLabel(type) {
+
+    if (type === "daily") {
+        return "Daily";
+    }
+
+    if (type === "weekly") {
+        return "Weekly";
+    }
+
+    if (type === "monthly") {
+        return "Monthly";
+    }
+
+    return "";
+
+}
+
+
+/* =========================================================
+   OPEN TASK MODAL
+========================================================= */
+
+function openTaskModal(index = null) {
+
+    editingIndex = index;
+
+    if (index === null) {
+
+        modalTitle.textContent =
+            "Add Task";
+
+        taskForm.reset();
+
+        taskCategory.value =
+            "Personal";
+
+        taskPriority.value =
+            "Medium";
+
+        taskRepeat.value =
+            "none";
+
+    }
+
+    else {
+
+        modalTitle.textContent =
+            "Edit Task";
+
+        const key =
+            getDateKey(selectedDate);
+
+        const task =
+            tasks[key][index];
+
+        taskName.value =
+            task.name || "";
+
+        taskCategory.value =
+            task.category || "Personal";
+
+        taskPriority.value =
+            task.priority || "Medium";
+
+        taskTime.value =
+            task.time || "";
+
+        taskReminder.value =
+            task.reminder || "";
+
+        taskRepeat.value =
+            task.repeatType || "none";
+
+        taskNotes.value =
+            task.notes || "";
+
+    }
+
+    taskModal.classList.add("show");
+
+    setTimeout(
+        () => taskName.focus(),
+        100
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE TASK MODAL
+========================================================= */
+
+function closeTaskModal() {
+
+    taskModal.classList.remove("show");
+
+    taskForm.reset();
+
+    editingIndex = null;
+
+}
+
+
+/* =========================================================
+   ADD REPEATING TASKS
+========================================================= */
+
+function addRepeatingTask(
+    originalTask,
+    startDate
+) {
+
+    const repeatType =
+        originalTask.repeatType;
+
+    if (
+        !repeatType ||
+        repeatType === "none"
+    ) {
+
+        return;
+
+    }
+
+    let numberOfCopies = 0;
+
+    if (repeatType === "daily") {
+
+        numberOfCopies = 365;
+
+    }
+
+    else if (
+        repeatType === "weekly"
+    ) {
+
+        numberOfCopies = 52;
+
+    }
+
+    else if (
+        repeatType === "monthly"
+    ) {
+
+        numberOfCopies = 12;
+
+    }
+
+    for (
+        let i = 1;
+        i <= numberOfCopies;
+        i++
+    ) {
+
+        const futureDate =
+            new Date(startDate);
+
+        if (
+            repeatType === "daily"
+        ) {
+
+            futureDate.setDate(
+                futureDate.getDate() + i
+            );
+
+        }
+
+        else if (
+            repeatType === "weekly"
+        ) {
+
+            futureDate.setDate(
+                futureDate.getDate() + (i * 7)
+            );
+
+        }
+
+        else if (
+            repeatType === "monthly"
+        ) {
+
+            const originalDay =
+                startDate.getDate();
+
+            futureDate.setMonth(
+                futureDate.getMonth() + i
+            );
+
+            if (
+                futureDate.getDate() !==
+                originalDay
+            ) {
+
+                futureDate.setDate(0);
+
+            }
+
+        }
+
+        const futureKey =
+            getDateKey(futureDate);
+
+        if (!tasks[futureKey]) {
+
+            tasks[futureKey] = [];
+
+        }
+
+        const exists =
+            tasks[futureKey].some(
+                task =>
+                    task.repeatId ===
+                    originalTask.repeatId
+            );
+
+        if (!exists) {
+
+            tasks[futureKey].push({
+
+                ...originalTask,
+
+                completed: false
+
+            });
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE TASK FORM
+========================================================= */
+
+taskForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+        const name =
+            taskName.value.trim();
+
+        if (!name) {
+
+            alert(
+                "Please enter a task name."
+            );
+
+            return;
+
+        }
+
+        const key =
+            getDateKey(selectedDate);
+
+        if (!tasks[key]) {
+
+            tasks[key] = [];
+
+        }
+
+
+        /* EDIT */
+
+        if (
+            editingIndex !== null
+        ) {
+
+            const oldTask =
+                tasks[key][editingIndex];
+
+            const taskData = {
+
+                id:
+                    oldTask.id,
+
+                repeatId:
+                    oldTask.repeatId ||
+                    oldTask.id,
+
+                name:
+                    name,
+
+                category:
+                    taskCategory.value,
+
+                priority:
+                    taskPriority.value,
+
+                time:
+                    taskTime.value,
+
+                reminder:
+                    taskReminder.value,
+
+                repeatType:
+                    taskRepeat.value,
+
+                notes:
+                    taskNotes.value.trim(),
+
+                completed:
+                    oldTask.completed === true
+
+            };
+
+            tasks[key][editingIndex] =
+                taskData;
+
+        }
+
+
+        /* NEW */
+
+        else {
+
+            const taskId =
+                Date.now() +
+                Math.random();
+
+            const taskData = {
+
+                id:
+                    taskId,
+
+                repeatId:
+                    taskId,
+
+                name:
+                    name,
+
+                category:
+                    taskCategory.value,
+
+                priority:
+                    taskPriority.value,
+
+                time:
+                    taskTime.value,
+
+                reminder:
+                    taskReminder.value,
+
+                repeatType:
+                    taskRepeat.value,
+
+                notes:
+                    taskNotes.value.trim(),
+
+                completed:
+                    false
+
+            };
+
+            tasks[key].push(
+                taskData
+            );
+
+            addRepeatingTask(
+                taskData,
+                selectedDate
+            );
+
+        }
+
+        saveTasks();
+
+        closeTaskModal();
+
+        refreshDashboard();
+
+    }
+);
+
+
+/* =========================================================
+   RENDER CALENDAR
+========================================================= */
+
+function renderCalendar() {
+
+    calendar.innerHTML = "";
+
+    const firstDay =
+        new Date(
+            currentYear,
+            currentMonth,
+            1
+        );
+
+    const lastDay =
+        new Date(
+            currentYear,
+            currentMonth + 1,
+            0
+        );
+
+    const startDay =
+        firstDay.getDay();
+
+    const totalDays =
+        lastDay.getDate();
+
+    calendarTitle.textContent =
+        firstDay.toLocaleDateString(
+            "en-US",
+            {
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+    for (
+        let i = 0;
+        i < startDay;
+        i++
+    ) {
+
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "day empty";
+
+        calendar.appendChild(empty);
+
+    }
+
+
+    for (
+        let day = 1;
+        day <= totalDays;
+        day++
+    ) {
+
+        const date =
+            new Date(
+                currentYear,
+                currentMonth,
+                day
+            );
+
+        const key =
+            getDateKey(date);
+
+        const dayTasks =
+            tasks[key] || [];
+
+        const hasTasks =
+            dayTasks.length > 0;
+
+        const hasReminder =
+            dayTasks.some(
+                task =>
+                    task.reminder
+            );
+
+        const frost =
+            isFrostDay(key);
+
+
+        if (
+            calendarFilter === "tasks" &&
+            !hasTasks
+        ) {
+
+            continue;
+
+        }
+
+        if (
+            calendarFilter === "frost" &&
+            !frost
+        ) {
+
+            continue;
+
+        }
+
+        if (
+            calendarFilter === "reminders" &&
+            !hasReminder
+        ) {
+
+            continue;
+
+        }
+
+
+        const dayElement =
+            document.createElement("div");
+
+        dayElement.className =
+            "day";
+
+        if (hasTasks) {
+
+            dayElement.classList.add(
+                "has-tasks"
+            );
+
+        }
+
+
+        const number =
+            document.createElement("div");
+
+        number.className =
+            "day-number";
+
+        number.textContent =
+            day;
+
+        dayElement.appendChild(number);
+
+
+        if (hasTasks) {
+
+            const taskCount =
+                document.createElement("div");
+
+            taskCount.className =
+                "day-task-count";
+
+            const completed =
+                dayTasks.filter(
+                    task =>
+                        task.completed
+                ).length;
+
+            taskCount.textContent =
+                `${completed}/${dayTasks.length} tasks`;
+
+            dayElement.appendChild(
+                taskCount
+            );
+
+        }
+
+
+        const today =
+            new Date();
+
+        if (
+            date.getDate() ===
+                today.getDate() &&
+            date.getMonth() ===
+                today.getMonth() &&
+            date.getFullYear() ===
+                today.getFullYear()
+        ) {
+
+            dayElement.classList.add(
+                "today"
+            );
+
+        }
+
+
+        if (
+            key ===
+            getDateKey(selectedDate)
+        ) {
+
+            dayElement.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        if (frost) {
+
+            const frostMark =
+                document.createElement("div");
+
+            frostMark.className =
+                "frost-mark";
+
+            frostMark.textContent =
+                "❄️";
+
+            dayElement.appendChild(
+                frostMark
+            );
+
+        }
+
+
+        if (hasReminder) {
+
+            const reminderMark =
+                document.createElement("div");
+
+            reminderMark.className =
+                "reminder-mark";
+
+            reminderMark.textContent =
+                "🔔";
+
+            dayElement.appendChild(
+                reminderMark
+            );
+
+        }
+
+
+        dayElement.addEventListener(
+            "click",
+            function() {
+
+                selectedDate =
+                    new Date(date);
+
+                renderCalendar();
+
+                renderTasks();
+
+            }
+        );
+
+
+        calendar.appendChild(
+            dayElement
+        );
+
+    }
+
+
+    if (
+        calendar.children.length === 0
+    ) {
+
+        const message =
+            document.createElement("div");
+
+        message.style.gridColumn =
+            "1 / -1";
+
+        message.style.textAlign =
+            "center";
+
+        message.style.padding =
+            "30px";
+
+        message.style.color =
+            "#64748b";
+
+        message.textContent =
+            "No matching days found.";
+
+        calendar.appendChild(
+            message
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   IS FROST DAY
+========================================================= */
+
+function isFrostDay(key) {
+
+    const dayTasks =
+        tasks[key] || [];
+
+    if (
+        dayTasks.length === 0
+    ) {
+
+        return false;
+
+    }
+
+    return dayTasks.every(
+        task =>
+            task.completed === true
+    );
+
+}
+
+
+/* =========================================================
+   FROST COUNT
+========================================================= */
+
+function updateFrostCount() {
+
+    let count = 0;
+
+    Object.keys(tasks).forEach(
+        key => {
+
+            if (
+                isFrostDay(key)
+            ) {
+
+                count++;
+
+            }
+
+        }
+    );
+
+    frostCount.textContent =
+        count;
+
+}
+
+
+/* =========================================================
+   RENDER TASKS
+========================================================= */
+
+function renderTasks() {
+
+    const key =
+        getDateKey(selectedDate);
+
+    const dayTasks =
+        tasks[key] || [];
+
+    selectedDateTitle.textContent =
+        formatDate(selectedDate);
+
+    taskList.innerHTML = "";
+
+
+    if (
+        dayTasks.length === 0
+    ) {
+
+        taskList.style.display =
+            "none";
+
+        emptyState.style.display =
+            "block";
+
+        updateProgress();
+
+        return;
+
+    }
+
+
+    taskList.style.display =
+        "flex";
+
+    emptyState.style.display =
+        "none";
+
+
+    dayTasks.forEach(
+        (task, index) => {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "task-card";
+
+
+            if (
+                task.completed
+            ) {
+
+                card.classList.add(
+                    "completed"
+                );
+
+            }
+
+
+            const checkbox =
+                document.createElement("input");
+
+            checkbox.type =
+                "checkbox";
+
+            checkbox.className =
+                "task-checkbox";
+
+            checkbox.checked =
+                task.completed;
+
+
+            checkbox.addEventListener(
+                "change",
+                function() {
+
+                    completeTask(index);
+
+                }
+            );
+
+
+            const content =
+                document.createElement("div");
+
+            content.className =
+                "task-content";
+
+
+            const name =
+                document.createElement("div");
+
+            name.className =
+                "task-name";
+
+            name.textContent =
+                task.name;
+
+            content.appendChild(name);
+
+
+            const meta =
+                document.createElement("div");
+
+            meta.className =
+                "task-meta";
+
+
+            if (task.category) {
+
+                const category =
+                    document.createElement("span");
+
+                category.className =
+                    "badge";
+
+                category.textContent =
+                    task.category;
+
+                meta.appendChild(
+                    category
+                );
+
+            }
+
+
+            if (task.priority) {
+
+                const priority =
+                    document.createElement("span");
+
+                priority.className =
+                    "badge";
+
+
+                if (
+                    task.priority ===
+                    "High"
+                ) {
+
+                    priority.classList.add(
+                        "priority-high"
+                    );
+
+                }
+
+                else if (
+                    task.priority ===
+                    "Medium"
+                ) {
+
+                    priority.classList.add(
+                        "priority-medium"
+                    );
+
+                }
+
+                else {
+
+                    priority.classList.add(
+                        "priority-low"
+                    );
+
+                }
+
+
+                priority.textContent =
+                    task.priority;
+
+                meta.appendChild(
+                    priority
+                );
+
+            }
+
+
+            if (task.time) {
+
+                const time =
+                    document.createElement("span");
+
+                time.className =
+                    "badge";
+
+                time.textContent =
+                    "⏰ " +
+                    task.time;
+
+                meta.appendChild(
+                    time
+                );
+
+            }
+
+
+            if (task.reminder) {
+
+                const reminder =
+                    document.createElement("span");
+
+                reminder.className =
+                    "badge reminder-badge";
+
+                reminder.textContent =
+                    "🔔 " +
+                    task.reminder;
+
+                meta.appendChild(
+                    reminder
+                );
+
+            }
+
+
+            if (
+                task.repeatType &&
+                task.repeatType !== "none"
+            ) {
+
+                const repeat =
+                    document.createElement("span");
+
+                repeat.className =
+                    "badge repeat-badge";
+
+                repeat.textContent =
+                    "↻ " +
+                    getRepeatLabel(
+                        task.repeatType
+                    );
+
+                meta.appendChild(
+                    repeat
+                );
+
+            }
+
+
+            content.appendChild(meta);
+
+
+            if (task.notes) {
+
+                const notes =
+                    document.createElement("div");
+
+                notes.className =
+                    "task-notes";
+
+                notes.textContent =
+                    task.notes;
+
+                content.appendChild(
+                    notes
+                );
+
+            }
+
+
+            const actions =
+                document.createElement("div");
+
+            actions.className =
+                "task-actions";
+
+
+            const editButton =
+                document.createElement("button");
+
+            editButton.type =
+                "button";
+
+            editButton.className =
+                "edit-button";
+
+            editButton.textContent =
+                "Edit";
+
+
+            editButton.addEventListener(
+                "click",
+                function() {
+
+                    openTaskModal(index);
+
+                }
+            );
+
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.type =
+                "button";
+
+            deleteButton.className =
+                "delete-button";
+
+            deleteButton.textContent =
+                "Delete";
+
+
+            deleteButton.addEventListener(
+                "click",
+                function() {
+
+                    deleteTask(index);
+
+                }
+            );
+
+
+            actions.appendChild(
+                editButton
+            );
+
+            actions.appendChild(
+                deleteButton
+            );
+
+
+            card.appendChild(
+                checkbox
+            );
+
+            card.appendChild(
+                content
+            );
+
+            card.appendChild(
+                actions
+            );
+
+
+            taskList.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    updateProgress();
+
+}
+
+
+/* =========================================================
+   EDIT TASK
+========================================================= */
+
+function editTask(index) {
+
+    openTaskModal(index);
+
+}
+
+
+/* =========================================================
+   DELETE TASK
+========================================================= */
+
+function deleteTask(index) {
+
+    const key =
+        getDateKey(selectedDate);
+
+    if (
+        !tasks[key] ||
+        !tasks[key][index]
+    ) {
+
+        return;
+
+    }
+
+    const name =
+        tasks[key][index].name;
+
+    const confirmed =
+        confirm(
+            `Delete "${name}"?`
+        );
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+    tasks[key].splice(
+        index,
+        1
+    );
+
+    if (
+        tasks[key].length === 0
+    ) {
+
+        delete tasks[key];
+
+    }
+
+    saveTasks();
+
+    refreshDashboard();
+
+}
+
+
+/* =========================================================
+   COMPLETE TASK
+========================================================= */
+
+function completeTask(index) {
+
+    const key =
+        getDateKey(selectedDate);
+
+    if (
+        !tasks[key] ||
+        !tasks[key][index]
+    ) {
+
+        return;
+
+    }
+
+    tasks[key][index].completed =
+        !tasks[key][index].completed;
+
+    saveTasks();
+
+    refreshDashboard();
+
+
+    if (
+        isFrostDay(key)
+    ) {
+
+        showInPageNotification(
+            "❄️ Frost Created",
+            "You completed every task for this day!"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DAILY PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const key =
+        getDateKey(selectedDate);
+
+    const dayTasks =
+        tasks[key] || [];
+
+    if (
+        dayTasks.length === 0
+    ) {
+
+        progressFill.style.width =
+            "0%";
+
+        progressText.textContent =
+            "0%";
+
+        return;
+
+    }
+
+    const completed =
+        dayTasks.filter(
+            task =>
+                task.completed
+        ).length;
+
+    const percentage =
+        Math.round(
+            (
+                completed /
+                dayTasks.length
+            ) * 100
+        );
+
+    progressFill.style.width =
+        percentage + "%";
+
+    progressText.textContent =
+        percentage + "%";
+
+}
+
+
+/* =========================================================
+   GLOBAL STATISTICS
+========================================================= */
+
+function updateStatistics() {
+
+    let total = 0;
+
+    let completed = 0;
+
+    Object.values(tasks).forEach(
+        dayTasks => {
+
+            if (!Array.isArray(dayTasks)) {
+                return;
+            }
+
+            total +=
+                dayTasks.length;
+
+            completed +=
+                dayTasks.filter(
+                    task =>
+                        task.completed === true
+                ).length;
+
+        }
+    );
+
+    const pending =
+        Math.max(
+            0,
+            total - completed
+        );
+
+    const rate =
+        total === 0
+            ? 0
+            : Math.round(
+                (completed / total) *
+                100
+            );
+
+    totalTasksStat.textContent =
+        total;
+
+    completedTasksStat.textContent =
+        completed;
+
+    pendingTasksStat.textContent =
+        pending;
+
+    completionRateStat.textContent =
+        rate + "%";
+
+}
+
+
+/* =========================================================
+   MONTHLY FROST REWARD
+========================================================= */
+
+function updateMonthlyReward() {
+
+    const year =
+        currentYear;
+
+    const month =
+        currentMonth;
+
+    const daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+    let frostDays = 0;
+
+    for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+    ) {
+
+        const date =
+            new Date(
+                year,
+                month,
+                day
+            );
+
+        const key =
+            getDateKey(date);
+
+        if (
+            isFrostDay(key)
+        ) {
+
+            frostDays++;
+
+        }
+
+    }
+
+    const percentage =
+        Math.min(
+            100,
+            Math.round(
+                (
+                    frostDays /
+                    daysInMonth
+                ) * 100
+            )
+        );
+
+    rewardStatus.textContent =
+        `${frostDays} / ${daysInMonth} Frost Days`;
+
+    rewardProgressFill.style.width =
+        percentage + "%";
+
+
+    if (
+        frostDays === daysInMonth
+    ) {
+
+        rewardMessage.textContent =
+            "Amazing! You completed every day this month.";
+
+        snowfall.classList.add(
+            "show"
+        );
+
+    }
+
+    else {
+
+        const remaining =
+            daysInMonth -
+            frostDays;
+
+        rewardMessage.textContent =
+            `${remaining} more Frost Day${
+                remaining === 1 ? "" : "s"
+            } needed for the monthly snowfall reward.`;
+
+        snowfall.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PREVIOUS MONTH
+========================================================= */
+
+function previousMonth() {
+
+    currentMonth--;
+
+    if (
+        currentMonth < 0
+    ) {
+
+        currentMonth = 11;
+
+        currentYear--;
+
+    }
+
+    renderCalendar();
+
+    updateMonthlyReward();
+
+}
+
+
+/* =========================================================
+   NEXT MONTH
+========================================================= */
+
+function nextMonth() {
+
+    currentMonth++;
+
+    if (
+        currentMonth > 11
+    ) {
+
+        currentMonth = 0;
+
+        currentYear++;
+
+    }
+
+    renderCalendar();
+
+    updateMonthlyReward();
+
+}
+
+
+/* =========================================================
+   TODAY
+========================================================= */
+
+function goToToday() {
+
+    const today =
+        new Date();
+
+    selectedDate =
+        new Date(today);
+
+    currentMonth =
+        today.getMonth();
+
+    currentYear =
+        today.getFullYear();
+
+    renderCalendar();
+
+    renderTasks();
+
+    updateMonthlyReward();
+
+}
+
+
+/* =========================================================
+   CALENDAR FILTER
+========================================================= */
+
+calendarFilterElement.addEventListener(
+    "change",
+    function() {
+
+        calendarFilter =
+            this.value;
+
+        renderCalendar();
+
+    }
+);
+
+
+/* =========================================================
+   IN-PAGE NOTIFICATION
+========================================================= */
+
+function showInPageNotification(
+    title,
+    message
+) {
+
+    notificationTitle.textContent =
+        title;
+
+    notificationMessage.textContent =
+        message;
+
+    notificationBox.classList.add(
+        "show"
+    );
+
+    setTimeout(
+        function() {
+
+            notificationBox.classList.remove(
+                "show"
+            );
+
+        },
+        5000
+    );
+
+}
+
+
+/* =========================================================
+   BROWSER NOTIFICATION
+========================================================= */
+
+function sendBrowserNotification(
+    title,
+    message
+) {
+
+    if (
+        !("Notification" in window)
+    ) {
+
+        return;
+
+    }
+
+    if (
+        Notification.permission ===
+        "granted"
+    ) {
+
+        try {
+
+            new Notification(
+                title,
+                {
+                    body: message,
+                    icon: ""
+                }
+            );
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Browser notification failed."
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   REQUEST NOTIFICATION PERMISSION
+========================================================= */
+
+async function requestNotificationPermission() {
+
+    if (
+        !("Notification" in window)
+    ) {
+
+        return;
+
+    }
+
+    if (
+        Notification.permission ===
+        "default"
+    ) {
+
+        try {
+
+            await Notification.requestPermission();
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Notification permission was not granted."
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   TODAY KEY
+========================================================= */
+
+function getTodayKey() {
+
+    return getDateKey(
+        new Date()
+    );
+
+}
+
+
+/* =========================================================
+   CHECK TASK REMINDERS
+========================================================= */
+
+function checkTaskReminders() {
+
+    const todayKey =
+        getTodayKey();
+
+    const todayTasks =
+        tasks[todayKey] || [];
+
+    if (
+        todayTasks.length === 0
+    ) {
+
+        return;
+
+    }
+
+    const now =
+        new Date();
+
+    const currentHour =
+        String(
+            now.getHours()
+        ).padStart(2, "0");
+
+    const currentMinute =
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
+
+    const currentTime =
+        `${currentHour}:${currentMinute}`;
+
+    todayTasks.forEach(
+        task => {
+
+            if (
+                !task.reminder
+            ) {
+
+                return;
+
+            }
+
+            if (
+                task.completed
+            ) {
+
+                return;
+
+            }
+
+            if (
+                task.reminder !==
+                currentTime
+            ) {
+
+                return;
+
+            }
+
+            const triggerKey =
+                `${todayKey}_${task.id}_${currentTime}`;
+
+            const alreadyTriggered =
+                sessionStorage.getItem(
+                    triggerKey
+                );
+
+            if (
+                alreadyTriggered
+            ) {
+
+                return;
+
+            }
+
+            sessionStorage.setItem(
+                triggerKey,
+                "true"
+            );
+
+            const message =
+                `Reminder: ${task.name}`;
+
+            showInPageNotification(
+                "🔔 Frost Task Reminder",
+                message
+            );
+
+            sendBrowserNotification(
+                "🔔 Frost Task Reminder",
+                message
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   START REMINDER CHECKER
+========================================================= */
+
+function startReminderChecker() {
+
+    requestNotificationPermission();
+
+    checkTaskReminders();
+
+    if (
+        reminderCheckInterval
+    ) {
+
+        clearInterval(
+            reminderCheckInterval
+        );
+
+    }
+
+    reminderCheckInterval =
+        setInterval(
+            checkTaskReminders,
+            30000
+        );
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+========================================================= */
+
+addTaskButton.addEventListener(
+    "click",
+    function() {
+
+        openTaskModal();
+
+    }
+);
+
+
+emptyAddButton.addEventListener(
+    "click",
+    function() {
+
+        openTaskModal();
+
+    }
+);
+
+
+closeModal.addEventListener(
+    "click",
+    closeTaskModal
+);
+
+
+cancelTask.addEventListener(
+    "click",
+    closeTaskModal
+);
+
+
+previousMonthButton.addEventListener(
+    "click",
+    previousMonth
+);
+
+
+nextMonthButton.addEventListener(
+    "click",
+    nextMonth
+);
+
+
+todayButton.addEventListener(
+    "click",
+    goToToday
+);
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+taskModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            taskModal
+        ) {
+
+            closeTaskModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeTaskModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   REFRESH DASHBOARD
+========================================================= */
+
+function refreshDashboard() {
+
+    renderCalendar();
+
+    renderTasks();
+
+    updateFrostCount();
+
+    updateStatistics();
+
+    updateMonthlyReward();
+
+}
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+loadTasks();
+
+refreshDashboard();
+
+startReminderChecker();
+
+
+/* =========================================================
+   AUTO REFRESH
+========================================================= */
+
+setInterval(
+    function() {
+
+        renderCalendar();
+
+        updateFrostCount();
+
+        updateStatistics();
+
+        updateMonthlyReward();
+
+        checkTaskReminders();
+
+    },
+    60000
+);
+
+</script>
+
+</body>
+</html>
+

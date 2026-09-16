@@ -1,0 +1,1709 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Frost Task - Weekly</title>
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f9fc;
+            color: #1f2937;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            background: linear-gradient(
+                135deg,
+                #dff6ff,
+                #ffffff
+            );
+
+            padding: 18px 30px;
+
+            border-bottom: 1px solid #dbeafe;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+            flex-wrap: wrap;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: #2563eb;
+            white-space: nowrap;
+        }
+
+
+        nav {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        main {
+            max-width: 1250px;
+            margin: auto;
+            padding: 30px 20px 70px;
+        }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 6px;
+            color: #1f2937;
+        }
+
+
+        .welcome p {
+            color: #6b7280;
+        }
+
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .card {
+            background: #ffffff;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.05);
+        }
+
+
+        /* =====================================================
+           WEEK HEADER
+        ===================================================== */
+
+        .week-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 22px;
+        }
+
+
+        .week-header h2 {
+            font-size: 23px;
+            color: #1f2937;
+        }
+
+
+        .week-buttons {
+            display: flex;
+            gap: 7px;
+        }
+
+
+        .week-buttons button {
+            border: none;
+
+            background: #e0f2fe;
+
+            color: #2563eb;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 9px;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            transition: 0.2s ease;
+        }
+
+
+        .week-buttons button:hover {
+            background: #bae6fd;
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-area {
+            margin-bottom: 25px;
+        }
+
+
+        .progress-text {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            color: #6b7280;
+        }
+
+
+        #progressText {
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+
+        .progress-bar {
+            width: 100%;
+
+            height: 11px;
+
+            background: #e5e7eb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-fill {
+            width: 0%;
+
+            height: 100%;
+
+            background: #2563eb;
+
+            border-radius: 20px;
+
+            transition: width 0.3s ease;
+        }
+
+
+        /* =====================================================
+           DAYS
+        ===================================================== */
+
+        .days-container {
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, minmax(0, 1fr));
+
+            gap: 12px;
+        }
+
+
+        .day-card {
+            background: #fafdff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 14px;
+
+            min-height: 240px;
+
+            transition: 0.2s ease;
+        }
+
+
+        .day-card:hover {
+            border-color: #93c5fd;
+
+            box-shadow:
+                0 5px 15px
+                rgba(37, 99, 235, 0.08);
+
+            transform: translateY(-1px);
+        }
+
+
+        .day-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 8px;
+
+            margin-bottom: 15px;
+
+            padding-bottom: 10px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .day-name {
+            font-weight: 700;
+
+            color: #2563eb;
+
+            font-size: 14px;
+        }
+
+
+        .day-date {
+            color: #6b7280;
+
+            font-size: 12px;
+
+            margin-top: 2px;
+        }
+
+
+        .frost {
+            font-size: 19px;
+
+            min-width: 22px;
+
+            text-align: right;
+        }
+
+
+        /* =====================================================
+           TASK LIST
+        ===================================================== */
+
+        .task-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .task {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 7px;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 9px;
+
+            padding: 9px;
+
+            transition: 0.2s ease;
+        }
+
+
+        .task:hover {
+            border-color: #bfdbfe;
+            background: #f8fbff;
+        }
+
+
+        .task input {
+            width: 17px;
+            height: 17px;
+
+            margin-top: 2px;
+
+            flex-shrink: 0;
+
+            accent-color: #2563eb;
+        }
+
+
+        .task-content {
+            flex: 1;
+
+            min-width: 0;
+
+            font-size: 13px;
+
+            word-break: break-word;
+
+            color: #374151;
+        }
+
+
+        .task.completed {
+            background: #f0fdf4;
+
+            border-color: #bbf7d0;
+        }
+
+
+        .task.completed .task-content {
+            text-decoration: line-through;
+
+            color: #6b7280;
+        }
+
+
+        /* =====================================================
+           TASK ACTIONS
+        ===================================================== */
+
+        .task-actions {
+            display: flex;
+
+            gap: 4px;
+
+            flex-shrink: 0;
+        }
+
+
+        .task-actions button {
+            border: none;
+
+            background: #f3f4f6;
+
+            width: 27px;
+            height: 27px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.2s ease;
+        }
+
+
+        .task-actions button:first-child {
+            background: #dbeafe;
+        }
+
+
+        .task-actions button:last-child {
+            background: #fee2e2;
+        }
+
+
+        .task-actions button:hover {
+            transform: scale(1.05);
+        }
+
+
+        /* =====================================================
+           ADD TASK BUTTON
+        ===================================================== */
+
+        .add-task-btn {
+            width: 100%;
+
+            border: 1px dashed #93c5fd;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            padding: 9px 10px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-top: 8px;
+
+            transition: 0.2s ease;
+        }
+
+
+        .add-task-btn:hover {
+            background: #dbeafe;
+
+            border-color: #60a5fa;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+
+        .empty {
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            padding: 10px 0;
+
+            font-style: italic;
+        }
+
+
+        /* =====================================================
+           FROST DAY VISUAL
+        ===================================================== */
+
+        .day-card:has(.frost:not(:empty)) {
+            border-color: #bae6fd;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f0faff,
+                    #ffffff
+                );
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - TABLET
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .days-container {
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - SMALL TABLET
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+
+            main {
+                padding:
+                    25px 15px 50px;
+            }
+
+
+            .days-container {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 14px;
+
+                padding: 16px;
+            }
+
+
+            .logo {
+                font-size: 24px;
+            }
+
+
+            nav {
+                width: 100%;
+
+                gap: 8px;
+            }
+
+
+            nav a {
+                font-size: 12px;
+
+                background: #ffffff;
+
+                padding: 6px 9px;
+
+                border-radius: 7px;
+
+                border: 1px solid #dbeafe;
+            }
+
+
+            main {
+                padding:
+                    20px 12px 40px;
+            }
+
+
+            .welcome h1 {
+                font-size: 26px;
+            }
+
+
+            .card {
+                padding: 16px;
+
+                border-radius: 15px;
+            }
+
+
+            .week-header {
+                align-items: flex-start;
+            }
+
+
+            .week-header h2 {
+                font-size: 20px;
+            }
+
+
+            .days-container {
+                grid-template-columns: 1fr;
+
+                gap: 10px;
+            }
+
+
+            .day-card {
+                min-height: auto;
+
+                padding: 14px;
+            }
+
+
+            .day-header {
+                margin-bottom: 12px;
+            }
+
+
+            .task {
+                padding: 10px;
+            }
+
+
+            .task-actions button {
+                width: 30px;
+                height: 30px;
+            }
+
+        }
+
+
+        /* =====================================================
+           VERY SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 400px) {
+
+            nav {
+                gap: 5px;
+            }
+
+
+            nav a {
+                padding:
+                    5px 7px;
+
+                font-size: 11px;
+            }
+
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+
+
+            .week-buttons button {
+                width: 36px;
+                height: 36px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+        ❄️ Frost Task
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="weekly.html">
+            Weekly
+        </a>
+
+        <a href="finance.html">
+            Finance
+        </a>
+
+        <a href="savings.html">
+            Savings
+        </a>
+
+        <a href="work.html">
+            Work
+        </a>
+
+        <a href="alerts.html">
+            Alerts
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+    <!-- =================================================
+         TITLE
+    ================================================== -->
+
+    <div class="welcome">
+
+        <h1>
+            Weekly Tasks ❄️
+        </h1>
+
+        <p>
+            Plan your week and keep your Frost growing.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         WEEK CARD
+    ================================================== -->
+
+    <div class="card">
+
+
+        <!-- WEEK HEADER -->
+
+        <div class="week-header">
+
+            <div>
+
+                <h2 id="weekTitle">
+                    This Week
+                </h2>
+
+            </div>
+
+
+            <div class="week-buttons">
+
+                <button
+                    type="button"
+                    onclick="previousWeek()"
+                    aria-label="Previous week">
+
+                    ‹
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="nextWeek()"
+                    aria-label="Next week">
+
+                    ›
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
+
+        <div class="progress-area">
+
+            <div class="progress-text">
+
+                <span>
+                    Weekly Progress
+                </span>
+
+
+                <span id="progressText">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             DAYS
+        ================================================== -->
+
+        <div
+            class="days-container"
+            id="daysContainer">
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let weeklyTasks =
+    JSON.parse(
+        localStorage.getItem(
+            "frostWeeklyTasks"
+        )
+    ) || {};
+
+
+let weekOffset = 0;
+
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function saveWeeklyTasks() {
+
+    localStorage.setItem(
+        "frostWeeklyTasks",
+        JSON.stringify(
+            weeklyTasks
+        )
+    );
+
+}
+
+
+
+/* =====================================================
+   GET MONDAY
+===================================================== */
+
+function getMonday(date) {
+
+    const result =
+        new Date(date);
+
+
+    const day =
+        result.getDay();
+
+
+    const difference =
+        day === 0
+            ? -6
+            : 1 - day;
+
+
+    result.setDate(
+        result.getDate() +
+        difference
+    );
+
+
+    result.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    return result;
+
+}
+
+
+
+/* =====================================================
+   DATE KEY
+===================================================== */
+
+function getDateKey(date) {
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatShortDate(date) {
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            day: "numeric",
+            month: "short"
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   RENDER WEEK
+===================================================== */
+
+function renderWeek() {
+
+    const container =
+        document.getElementById(
+            "daysContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    const today =
+        new Date();
+
+
+    let monday =
+        getMonday(today);
+
+
+    monday.setDate(
+        monday.getDate() +
+        weekOffset * 7
+    );
+
+
+    /* WEEK TITLE */
+
+    const sunday =
+        new Date(monday);
+
+
+    sunday.setDate(
+        monday.getDate() + 6
+    );
+
+
+    document.getElementById(
+        "weekTitle"
+    ).textContent =
+        `${formatShortDate(monday)} - ${formatShortDate(sunday)}`;
+
+
+    /* DAY NAMES */
+
+    const dayNames = [
+
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+
+    ];
+
+
+    /* CREATE DAYS */
+
+    for (
+        let i = 0;
+        i < 7;
+        i++
+    ) {
+
+        const date =
+            new Date(monday);
+
+
+        date.setDate(
+            monday.getDate() + i
+        );
+
+
+        const key =
+            getDateKey(date);
+
+
+        const dayTasks =
+            weeklyTasks[key] || [];
+
+
+        /* DAY CARD */
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "day-card";
+
+
+        /* TODAY */
+
+        const todayKey =
+            getDateKey(today);
+
+
+        if (
+            key === todayKey
+        ) {
+
+            card.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        /* FROST */
+
+        const frost =
+            isFrostDay(key)
+                ? "❄️"
+                : "";
+
+
+        card.innerHTML = `
+
+            <div class="day-header">
+
+                <div>
+
+                    <div class="day-name">
+
+                        ${dayNames[i]}
+
+                    </div>
+
+                    <div class="day-date">
+
+                        ${formatShortDate(date)}
+
+                    </div>
+
+                </div>
+
+
+                <div class="frost">
+
+                    ${frost}
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="task-list"
+                id="tasks-${key}">
+
+            </div>
+
+
+            <button
+                type="button"
+                class="add-task-btn"
+                onclick="addTask('${key}')">
+
+                + Add Task
+
+            </button>
+
+        `;
+
+
+        container.appendChild(
+            card
+        );
+
+
+        renderDayTasks(
+            key
+        );
+
+    }
+
+
+    updateWeeklyProgress();
+
+}
+
+
+
+/* =====================================================
+   RENDER DAY TASKS
+===================================================== */
+
+function renderDayTasks(key) {
+
+    const container =
+        document.getElementById(
+            `tasks-${key}`
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    const dayTasks =
+        weeklyTasks[key] || [];
+
+
+    if (
+        dayTasks.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                No tasks
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    dayTasks.forEach(
+        (task, index) => {
+
+            const element =
+                document.createElement(
+                    "div"
+                );
+
+
+            element.className =
+                task.completed
+                    ? "task completed"
+                    : "task";
+
+
+            const safeName =
+                escapeHTML(
+                    task.name
+                );
+
+
+            element.innerHTML = `
+
+                <input
+                    type="checkbox"
+                    ${task.completed ? "checked" : ""}
+                    onchange="
+                        completeTask(
+                            '${key}',
+                            ${index}
+                        )
+                    "
+                    aria-label="Complete task"
+                >
+
+
+                <div class="task-content">
+
+                    ${safeName}
+
+                </div>
+
+
+                <div class="task-actions">
+
+                    <button
+                        type="button"
+                        onclick="
+                            editTask(
+                                '${key}',
+                                ${index}
+                            )
+                        "
+                        aria-label="Edit task">
+
+                        ✏️
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="
+                            deleteTask(
+                                '${key}',
+                                ${index}
+                            )
+                        "
+                        aria-label="Delete task">
+
+                        🗑️
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                element
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ADD TASK
+===================================================== */
+
+function addTask(key) {
+
+    const name =
+        prompt(
+            "Enter your weekly task:"
+        );
+
+
+    if (
+        !name ||
+        name.trim() === ""
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !weeklyTasks[key]
+    ) {
+
+        weeklyTasks[key] = [];
+
+    }
+
+
+    weeklyTasks[key].push({
+
+        name:
+            name.trim(),
+
+        completed:
+            false
+
+    });
+
+
+    saveWeeklyTasks();
+
+    renderWeek();
+
+}
+
+
+
+/* =====================================================
+   EDIT TASK
+===================================================== */
+
+function editTask(
+    key,
+    index
+) {
+
+    if (
+        !weeklyTasks[key] ||
+        !weeklyTasks[key][index]
+    ) {
+
+        return;
+
+    }
+
+
+    const oldName =
+        weeklyTasks[key][index].name;
+
+
+    const newName =
+        prompt(
+            "Edit task:",
+            oldName
+        );
+
+
+    if (
+        !newName ||
+        newName.trim() === ""
+    ) {
+
+        return;
+
+    }
+
+
+    weeklyTasks[key][index].name =
+        newName.trim();
+
+
+    saveWeeklyTasks();
+
+    renderWeek();
+
+}
+
+
+
+/* =====================================================
+   DELETE TASK
+===================================================== */
+
+function deleteTask(
+    key,
+    index
+) {
+
+    if (
+        !weeklyTasks[key] ||
+        !weeklyTasks[key][index]
+    ) {
+
+        return;
+
+    }
+
+
+    const name =
+        weeklyTasks[key][index].name;
+
+
+    const confirmDelete =
+        confirm(
+            `Delete "${name}"?`
+        );
+
+
+    if (!confirmDelete) {
+
+        return;
+
+    }
+
+
+    weeklyTasks[key].splice(
+        index,
+        1
+    );
+
+
+    if (
+        weeklyTasks[key].length === 0
+    ) {
+
+        delete weeklyTasks[key];
+
+    }
+
+
+    saveWeeklyTasks();
+
+    renderWeek();
+
+}
+
+
+
+/* =====================================================
+   COMPLETE TASK
+===================================================== */
+
+function completeTask(
+    key,
+    index
+) {
+
+    if (
+        !weeklyTasks[key] ||
+        !weeklyTasks[key][index]
+    ) {
+
+        return;
+
+    }
+
+
+    weeklyTasks[key][index].completed =
+        !weeklyTasks[key][index].completed;
+
+
+    saveWeeklyTasks();
+
+    renderWeek();
+
+}
+
+
+
+/* =====================================================
+   FROST DAY
+===================================================== */
+
+function isFrostDay(key) {
+
+    const dayTasks =
+        weeklyTasks[key] || [];
+
+
+    if (
+        dayTasks.length === 0
+    ) {
+
+        return false;
+
+    }
+
+
+    return dayTasks.every(
+        task =>
+            task.completed === true
+    );
+
+}
+
+
+
+/* =====================================================
+   WEEKLY PROGRESS
+===================================================== */
+
+function updateWeeklyProgress() {
+
+    let total = 0;
+
+    let completed = 0;
+
+
+    /*
+       Only calculate tasks from
+       the currently displayed week.
+    */
+
+    const today =
+        new Date();
+
+
+    let monday =
+        getMonday(today);
+
+
+    monday.setDate(
+        monday.getDate() +
+        weekOffset * 7
+    );
+
+
+    for (
+        let i = 0;
+        i < 7;
+        i++
+    ) {
+
+        const date =
+            new Date(monday);
+
+
+        date.setDate(
+            monday.getDate() + i
+        );
+
+
+        const key =
+            getDateKey(date);
+
+
+        const dayTasks =
+            weeklyTasks[key] || [];
+
+
+        total +=
+            dayTasks.length;
+
+
+        completed +=
+            dayTasks.filter(
+                task =>
+                    task.completed === true
+            ).length;
+
+    }
+
+
+    const percentage =
+        total === 0
+            ? 0
+            : Math.round(
+                completed /
+                total *
+                100
+            );
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percentage + "%";
+
+}
+
+
+
+/* =====================================================
+   WEEK NAVIGATION
+===================================================== */
+
+function previousWeek() {
+
+    weekOffset--;
+
+    renderWeek();
+
+}
+
+
+function nextWeek() {
+
+    weekOffset++;
+
+    renderWeek();
+
+}
+
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+renderWeek();
+
+</script>
+
+
+</body>
+
+</html>

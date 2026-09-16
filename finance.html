@@ -1,0 +1,1565 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finance - Frost Task</title>
+
+    <style>
+
+        /* ==============================
+           RESET
+        ============================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* ==============================
+           BODY
+        ============================== */
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf8ff,
+                    #f7fcff
+                );
+            color: #17324d;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid #cfeaf7;
+
+            box-shadow:
+                0 5px 20px
+                rgba(60, 140, 180, 0.10);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+
+        /* ==============================
+           LOGO
+        ============================== */
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #168dcc;
+            white-space: nowrap;
+        }
+
+
+        /* ==============================
+           NAVIGATION
+        ============================== */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+
+        nav a {
+            text-decoration: none;
+            color: #31566f;
+
+            padding: 9px 13px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        nav a:hover {
+            background: #e3f6ff;
+            color: #087db6;
+            transform: translateY(-1px);
+        }
+
+
+        nav a.active {
+            background: #dff4ff;
+            color: #087db6;
+        }
+
+
+        /* ==============================
+           MAIN CONTAINER
+        ============================== */
+
+        .container {
+            width: min(1100px, 92%);
+            margin: 35px auto 60px;
+        }
+
+
+        /* ==============================
+           PAGE TITLE
+        ============================== */
+
+        h1 {
+            font-size: 34px;
+            margin-bottom: 7px;
+            color: #17324d;
+        }
+
+
+        .subtitle {
+            color: #6b879b;
+            margin-bottom: 28px;
+            font-size: 15px;
+        }
+
+
+        /* ==============================
+           CARDS
+        ============================== */
+
+        .card {
+            background: rgba(255, 255, 255, 0.90);
+
+            border: 1px solid #d4edf8;
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            margin-bottom: 22px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(60, 140, 180, 0.10);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .card h2 {
+            margin-bottom: 19px;
+            font-size: 20px;
+            color: #17324d;
+        }
+
+
+        /* ==============================
+           FORM
+        ============================== */
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: 700;
+            font-size: 14px;
+
+            color: #31566f;
+        }
+
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border: 1px solid #c9e5f3;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            font-family: inherit;
+            font-size: 15px;
+
+            color: #17324d;
+
+            background: #fafdff;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        input:hover,
+        textarea:hover {
+            border-color: #a9d9ec;
+        }
+
+
+        input:focus,
+        textarea:focus {
+            border-color: #43b7eb;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(67, 183, 235, 0.12);
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9aafbd;
+        }
+
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
+        button {
+            border: none;
+
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            background: #43b7eb;
+            color: white;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        button:hover {
+            background: #168dcc;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 12px
+                rgba(22, 141, 204, 0.18);
+        }
+
+
+        button:active {
+            transform: translateY(0);
+        }
+
+
+        button:focus-visible {
+            outline: 3px solid
+                rgba(67, 183, 235, 0.25);
+
+            outline-offset: 2px;
+        }
+
+
+        .delete-btn {
+            background: #ff7b7b;
+        }
+
+
+        .delete-btn:hover {
+            background: #e85c5c;
+        }
+
+
+        /* ==============================
+           SUMMARY
+        ============================== */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .summary-box {
+            background:
+                rgba(255, 255, 255, 0.92);
+
+            border:
+                1px solid #d4edf8;
+
+            padding: 21px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(60, 140, 180, 0.10);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .summary-box:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(60, 140, 180, 0.13);
+        }
+
+
+        .summary-box p {
+            color: #7892a3;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .summary-box h2 {
+            color: #168dcc;
+
+            font-size: 23px;
+
+            word-break: break-word;
+        }
+
+
+        .remaining-box {
+            border-color: #f1dfc9;
+        }
+
+
+        .remaining-box h2 {
+            color: #e38a42;
+        }
+
+
+        .interest-box {
+            border-color: #d2eadf;
+        }
+
+
+        .interest-box h2 {
+            color: #198754;
+        }
+
+
+        /* ==============================
+           PAYMENT FORM
+        ============================== */
+
+        .payment-form {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+        }
+
+
+        .payment-form .full {
+            grid-column: 1 / -1;
+        }
+
+
+        /* ==============================
+           HISTORY
+        ============================== */
+
+        .history-item {
+            border:
+                1px solid #d9edf7;
+
+            border-radius: 14px;
+
+            padding: 16px;
+
+            margin-bottom: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fbfeff,
+                    #f5fbfe
+                );
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .history-item:hover {
+            border-color: #b9e2f2;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(60, 140, 180, 0.08);
+        }
+
+
+        .history-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+
+        .history-info strong {
+            display: block;
+
+            color: #168dcc;
+
+            margin-bottom: 5px;
+
+            font-size: 15px;
+
+            word-break: break-word;
+        }
+
+
+        .history-info span {
+            display: block;
+
+            color: #6c8798;
+
+            font-size: 13px;
+
+            margin-top: 3px;
+
+            word-break: break-word;
+        }
+
+
+        .history-actions {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-end;
+
+            gap: 8px;
+
+            flex-shrink: 0;
+        }
+
+
+        .history-amount {
+            font-weight: 700;
+
+            color: #198754;
+
+            font-size: 17px;
+        }
+
+
+        /* ==============================
+           EMPTY STATE
+        ============================== */
+
+        .empty {
+            text-align: center;
+
+            color: #7892a3;
+
+            padding: 25px 15px;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           INFO BOX
+        ============================== */
+
+        .info-box {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eefaff,
+                    #f5fcff
+                );
+
+            border-left:
+                4px solid #43b7eb;
+
+            padding: 14px 16px;
+
+            border-radius: 9px;
+
+            margin-top: 17px;
+
+            color: #52748a;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==============================
+           MOBILE / TABLET
+        ============================== */
+
+        @media (max-width: 850px) {
+
+            header {
+                flex-direction: column;
+                gap: 14px;
+                padding: 18px;
+            }
+
+
+            nav {
+                width: 100%;
+            }
+
+
+            nav a {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+
+            .container {
+                width: 94%;
+                margin-top: 28px;
+            }
+
+
+            .summary {
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            h1 {
+                font-size: 29px;
+            }
+
+
+            .card {
+                padding: 19px;
+                border-radius: 17px;
+            }
+
+
+            .payment-form {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .payment-form .full {
+                grid-column: auto;
+            }
+
+
+            .history-item {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .history-actions {
+                width: 100%;
+
+                flex-direction: row;
+
+                align-items: center;
+
+                justify-content: space-between;
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            header {
+                padding: 15px 12px;
+            }
+
+
+            .logo {
+                font-size: 23px;
+            }
+
+
+            nav {
+                gap: 3px;
+            }
+
+
+            nav a {
+                padding: 7px 8px;
+                font-size: 12px;
+            }
+
+
+            .container {
+                width: 94%;
+                margin-top: 22px;
+            }
+
+
+            h1 {
+                font-size: 26px;
+            }
+
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+
+            .summary-box {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+     HEADER
+============================== -->
+
+<header>
+
+    <div class="logo">
+        ❄️ Frost Task
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="weekly.html">
+            Weekly
+        </a>
+
+        <a href="finance.html" class="active">
+            Finance
+        </a>
+
+        <a href="savings.html">
+            Savings
+        </a>
+
+        <a href="work.html">
+            Work
+        </a>
+
+        <a href="alerts.html">
+            Alerts
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<div class="container">
+
+
+    <!-- ==============================
+         TITLE
+    ============================== -->
+
+    <h1>
+        Finance ❄️
+    </h1>
+
+
+    <p class="subtitle">
+        Keep track of your loan and interest payments.
+    </p>
+
+
+
+    <!-- ==============================
+         LOAN DETAILS
+    ============================== -->
+
+    <div class="card">
+
+        <h2>
+            Loan Details
+        </h2>
+
+
+        <div class="form-group">
+
+            <label for="loanAmount">
+                Original Loan Amount (₹)
+            </label>
+
+            <input
+                type="number"
+                id="loanAmount"
+                placeholder="Example: 50000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="remainingLoan">
+                Remaining Loan (₹)
+            </label>
+
+            <input
+                type="number"
+                id="remainingLoan"
+                placeholder="Example: 40000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="saveLoanDetails()"
+        >
+            Save Loan Details
+        </button>
+
+
+        <div class="info-box">
+
+            Original Loan and Remaining Loan are entered and
+            maintained separately. Interest payments do not
+            change the loan amounts.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         SUMMARY
+    ============================== -->
+
+    <div class="summary">
+
+
+        <div class="summary-box">
+
+            <p>
+                Original Loan
+            </p>
+
+            <h2 id="originalLoan">
+                ₹0
+            </h2>
+
+        </div>
+
+
+        <div class="summary-box remaining-box">
+
+            <p>
+                Remaining Loan
+            </p>
+
+            <h2 id="remainingLoanDisplay">
+                ₹0
+            </h2>
+
+        </div>
+
+
+        <div class="summary-box interest-box">
+
+            <p>
+                Total Interest Paid
+            </p>
+
+            <h2 id="totalInterest">
+                ₹0
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         ADD INTEREST PAYMENT
+    ============================== -->
+
+    <div class="card">
+
+        <h2>
+            Record Interest Payment
+        </h2>
+
+
+        <div class="payment-form">
+
+
+            <div class="form-group">
+
+                <label for="interestAmount">
+                    Interest Paid (₹)
+                </label>
+
+                <input
+                    type="number"
+                    id="interestAmount"
+                    placeholder="Example: 5000"
+                    min="0"
+                    step="0.01"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="paymentDate">
+                    Payment Date
+                </label>
+
+                <input
+                    type="date"
+                    id="paymentDate"
+                >
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label for="paymentNote">
+                    Note
+                </label>
+
+                <textarea
+                    id="paymentNote"
+                    placeholder="Example: Interest paid for September"
+                ></textarea>
+
+            </div>
+
+
+            <div class="full">
+
+                <button
+                    type="button"
+                    onclick="addInterestPayment()"
+                >
+                    Add Interest Payment
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         PAYMENT HISTORY
+    ============================== -->
+
+    <div class="card">
+
+        <h2>
+            Interest Payment History
+        </h2>
+
+        <div id="paymentHistory"></div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* ==========================================
+   LOAD DATA
+========================================== */
+
+let loanData =
+    JSON.parse(
+        localStorage.getItem("frostLoanData")
+    ) || {
+
+        loanAmount: 0,
+        remainingLoan: 0
+
+    };
+
+
+let interestPayments =
+    JSON.parse(
+        localStorage.getItem("frostInterestPayments")
+    ) || [];
+
+
+
+/* ==========================================
+   SAVE LOAN DETAILS
+========================================== */
+
+function saveLoanDetails() {
+
+    const originalLoan =
+        Number(
+            document.getElementById(
+                "loanAmount"
+            ).value
+        );
+
+
+    const remainingLoan =
+        Number(
+            document.getElementById(
+                "remainingLoan"
+            ).value
+        );
+
+
+    if (
+        !Number.isFinite(originalLoan) ||
+        originalLoan < 0
+    ) {
+
+        alert(
+            "Please enter a valid original loan amount."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !Number.isFinite(remainingLoan) ||
+        remainingLoan < 0
+    ) {
+
+        alert(
+            "Please enter a valid remaining loan amount."
+        );
+
+        return;
+
+    }
+
+
+    loanData.loanAmount =
+        originalLoan;
+
+
+    loanData.remainingLoan =
+        remainingLoan;
+
+
+    localStorage.setItem(
+        "frostLoanData",
+        JSON.stringify(loanData)
+    );
+
+
+    updateFinance();
+
+
+    alert(
+        "Loan details saved!"
+    );
+
+}
+
+
+
+/* ==========================================
+   ADD INTEREST PAYMENT
+========================================== */
+
+function addInterestPayment() {
+
+    const amount =
+        Number(
+            document.getElementById(
+                "interestAmount"
+            ).value
+        );
+
+
+    const date =
+        document.getElementById(
+            "paymentDate"
+        ).value;
+
+
+    const note =
+        document.getElementById(
+            "paymentNote"
+        ).value.trim();
+
+
+    if (
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ) {
+
+        alert(
+            "Please enter a valid interest amount."
+        );
+
+        return;
+
+    }
+
+
+    if (!date) {
+
+        alert(
+            "Please select a payment date."
+        );
+
+        return;
+
+    }
+
+
+    const payment = {
+
+        amount: amount,
+
+        date: date,
+
+        note: note
+
+    };
+
+
+    interestPayments.push(
+        payment
+    );
+
+
+    localStorage.setItem(
+        "frostInterestPayments",
+        JSON.stringify(
+            interestPayments
+        )
+    );
+
+
+    /* Clear form */
+
+    document.getElementById(
+        "interestAmount"
+    ).value = "";
+
+
+    document.getElementById(
+        "paymentNote"
+    ).value = "";
+
+
+    updateFinance();
+
+}
+
+
+
+/* ==========================================
+   DELETE INTEREST PAYMENT
+========================================== */
+
+function deleteInterestPayment(index) {
+
+    const confirmDelete =
+        confirm(
+            "Delete this interest payment?"
+        );
+
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    interestPayments.splice(
+        index,
+        1
+    );
+
+
+    localStorage.setItem(
+        "frostInterestPayments",
+        JSON.stringify(
+            interestPayments
+        )
+    );
+
+
+    updateFinance();
+
+}
+
+
+
+/* ==========================================
+   CALCULATE TOTAL INTEREST
+========================================== */
+
+function getTotalInterest() {
+
+    return interestPayments.reduce(
+        function(total, payment) {
+
+            const amount =
+                Number(payment.amount);
+
+
+            return total +
+                (
+                    Number.isFinite(amount)
+                    ? amount
+                    : 0
+                );
+
+        },
+        0
+    );
+
+}
+
+
+
+/* ==========================================
+   UPDATE FINANCE
+========================================== */
+
+function updateFinance() {
+
+    const originalLoan =
+        Number(
+            loanData.loanAmount
+        ) || 0;
+
+
+    const remainingLoan =
+        Number(
+            loanData.remainingLoan
+        ) || 0;
+
+
+    const totalInterest =
+        getTotalInterest();
+
+
+    document.getElementById(
+        "originalLoan"
+    ).textContent =
+        formatMoney(
+            originalLoan
+        );
+
+
+    document.getElementById(
+        "remainingLoanDisplay"
+    ).textContent =
+        formatMoney(
+            remainingLoan
+        );
+
+
+    document.getElementById(
+        "totalInterest"
+    ).textContent =
+        formatMoney(
+            totalInterest
+        );
+
+
+    renderPaymentHistory();
+
+}
+
+
+
+/* ==========================================
+   PAYMENT HISTORY
+========================================== */
+
+function renderPaymentHistory() {
+
+    const history =
+        document.getElementById(
+            "paymentHistory"
+        );
+
+
+    if (
+        interestPayments.length === 0
+    ) {
+
+        history.innerHTML = `
+
+            <div class="empty">
+                No interest payments recorded yet.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    history.innerHTML = "";
+
+
+    const sortedPayments =
+        interestPayments
+            .map(
+                function(
+                    payment,
+                    index
+                ) {
+
+                    return {
+
+                        payment:
+                            payment,
+
+                        index:
+                            index
+
+                    };
+
+                }
+            )
+            .reverse();
+
+
+    sortedPayments.forEach(
+        function(item) {
+
+            const payment =
+                item.payment;
+
+
+            const index =
+                item.index;
+
+
+            const historyItem =
+                document.createElement(
+                    "div"
+                );
+
+
+            historyItem.className =
+                "history-item";
+
+
+            historyItem.innerHTML = `
+
+                <div class="history-info">
+
+                    <strong>
+                        Interest:
+                        ${formatMoney(payment.amount)}
+                    </strong>
+
+                    <span>
+                        Date:
+                        ${formatDate(payment.date)}
+                    </span>
+
+                    ${
+                        payment.note
+                        ? `
+                            <span>
+                                Note:
+                                ${escapeHTML(
+                                    payment.note
+                                )}
+                            </span>
+                        `
+                        : ""
+                    }
+
+                </div>
+
+
+                <div class="history-actions">
+
+                    <div class="history-amount">
+                        ${formatMoney(
+                            payment.amount
+                        )}
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="delete-btn"
+                        onclick="
+                            deleteInterestPayment(
+                                ${index}
+                            )
+                        "
+                        aria-label="Delete interest payment"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            `;
+
+
+            history.appendChild(
+                historyItem
+            );
+
+        }
+    );
+
+}
+
+
+
+/* ==========================================
+   MONEY FORMAT
+========================================== */
+
+function formatMoney(amount) {
+
+    return new Intl.NumberFormat(
+        "en-IN",
+        {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 2
+        }
+    ).format(amount);
+
+}
+
+
+
+/* ==========================================
+   DATE FORMAT
+========================================== */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "Unknown date";
+    }
+
+
+    const date =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+
+    if (Number.isNaN(date.getTime())) {
+        return "Invalid date";
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        String(text);
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* ==========================================
+   LOAD FORM
+========================================== */
+
+function loadLoanForm() {
+
+    document.getElementById(
+        "loanAmount"
+    ).value =
+        loanData.loanAmount || "";
+
+
+    document.getElementById(
+        "remainingLoan"
+    ).value =
+        loanData.remainingLoan || "";
+
+
+    const today =
+        new Date();
+
+
+    const localDate =
+        today.getFullYear() +
+        "-" +
+        String(
+            today.getMonth() + 1
+        ).padStart(2, "0") +
+        "-" +
+        String(
+            today.getDate()
+        ).padStart(2, "0");
+
+
+    document.getElementById(
+        "paymentDate"
+    ).value =
+        localDate;
+
+}
+
+
+
+/* ==========================================
+   INITIAL LOAD
+========================================== */
+
+loadLoanForm();
+
+updateFinance();
+
+
+</script>
+
+
+</body>
+</html>
+

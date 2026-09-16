@@ -1,0 +1,2652 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alerts - Frost Task</title>
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf8ff,
+                    #f7fcff
+                );
+
+            color: #17324d;
+
+            min-height: 100vh;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.92
+                );
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            padding: 18px 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+
+            border-bottom:
+                1px solid #cfeaf7;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    60,
+                    140,
+                    180,
+                    0.10
+                );
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+
+        .logo {
+            font-size: 26px;
+
+            font-weight: 800;
+
+            color: #168dcc;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            flex-wrap: wrap;
+        }
+
+
+        nav a {
+            text-decoration: none;
+
+            color: #31566f;
+
+            padding: 9px 13px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        nav a:hover {
+            background: #e3f6ff;
+
+            color: #087db6;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        nav a.active {
+            background: #dff4ff;
+
+            color: #087db6;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: min(
+                1100px,
+                92%
+            );
+
+            margin: 35px auto 60px;
+        }
+
+
+        /* =========================
+           INTRO
+        ========================= */
+
+        .intro {
+            margin-bottom: 28px;
+        }
+
+
+        .intro h2 {
+            font-size: 34px;
+
+            color: #17324d;
+
+            margin-bottom: 7px;
+        }
+
+
+        .intro p {
+            color: #6b879b;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.90
+                );
+
+            border:
+                1px solid #d4edf8;
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            margin-bottom: 22px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(
+                    60,
+                    140,
+                    180,
+                    0.10
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .section h2 {
+            color: #17324d;
+
+            font-size: 20px;
+
+            margin-bottom: 19px;
+        }
+
+
+        /* =========================
+           NOTIFICATIONS
+        ========================= */
+
+        .notification-box {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eefaff,
+                    #f7fcff
+                );
+
+            border:
+                1px solid #cdeaf7;
+
+            border-radius: 14px;
+
+            padding: 18px;
+        }
+
+
+        .notification-status {
+            margin-bottom: 13px;
+
+            font-weight: 700;
+
+            color: #31566f;
+        }
+
+
+        .enable-btn {
+            background: #43b7eb;
+
+            color: white;
+        }
+
+
+        .enable-btn:hover {
+            background: #168dcc;
+
+            box-shadow:
+                0 5px 12px
+                rgba(
+                    22,
+                    141,
+                    204,
+                    0.18
+                );
+        }
+
+
+        /* =========================
+           ALARM FORM
+        ========================= */
+
+        .alarm-form {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                180px
+                180px
+                auto;
+
+            gap: 14px;
+
+            align-items: end;
+        }
+
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #31566f;
+        }
+
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border:
+                1px solid #c9e5f3;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            color: #17324d;
+
+            background: #fafdff;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: #a9d9ec;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #43b7eb;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    67,
+                    183,
+                    235,
+                    0.12
+                );
+        }
+
+
+        .add-alarm-btn {
+            background: #43b7eb;
+
+            color: white;
+        }
+
+
+        .add-alarm-btn:hover {
+            background: #168dcc;
+
+            box-shadow:
+                0 5px 12px
+                rgba(
+                    22,
+                    141,
+                    204,
+                    0.18
+                );
+        }
+
+
+        /* =========================
+           ALARM LIST
+        ========================= */
+
+        .alarm-list {
+            margin-top: 20px;
+        }
+
+
+        .alarm-card {
+            border:
+                1px solid #d9edf7;
+
+            border-radius: 16px;
+
+            padding: 18px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 18px;
+
+            margin-bottom: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fbfeff,
+                    #f5fbfe
+                );
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .alarm-card:hover {
+            border-color: #b9e2f2;
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 7px 18px
+                rgba(
+                    60,
+                    140,
+                    180,
+                    0.08
+                );
+        }
+
+
+        .alarm-card.disabled {
+            opacity: 0.55;
+        }
+
+
+        .alarm-info {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+
+        .alarm-name {
+            font-size: 17px;
+
+            font-weight: 700;
+
+            color: #17324d;
+
+            margin-bottom: 6px;
+
+            word-break: break-word;
+        }
+
+
+        .alarm-time {
+            font-size: 27px;
+
+            font-weight: 800;
+
+            color: #168dcc;
+
+            margin-bottom: 2px;
+        }
+
+
+        .alarm-type {
+            color: #7892a3;
+
+            font-size: 13px;
+
+            margin-top: 3px;
+        }
+
+
+        .alarm-actions {
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            flex-shrink: 0;
+        }
+
+
+        .toggle-btn {
+            background: #3aaa6b;
+
+            color: white;
+        }
+
+
+        .toggle-btn:hover {
+            background: #278b54;
+        }
+
+
+        .toggle-btn.off {
+            background: #78909c;
+        }
+
+
+        .toggle-btn.off:hover {
+            background: #607983;
+        }
+
+
+        .delete-btn {
+            background: #ff7b7b;
+
+            color: white;
+        }
+
+
+        .delete-btn:hover {
+            background: #e85c5c;
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+            text-align: center;
+
+            padding: 30px 15px;
+
+            color: #7892a3;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           TIMER
+        ========================= */
+
+        .timer {
+            text-align: center;
+        }
+
+
+        .timer-display {
+            font-size: 58px;
+
+            font-weight: 800;
+
+            margin: 20px 0;
+
+            color: #168dcc;
+
+            letter-spacing: 1px;
+        }
+
+
+        .timer-inputs {
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 17px;
+
+            color: #6b879b;
+
+            font-size: 14px;
+        }
+
+
+        .timer-inputs input {
+            width: 90px;
+
+            padding: 11px;
+
+            text-align: center;
+
+            border:
+                1px solid #c9e5f3;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: #17324d;
+
+            background: #fafdff;
+        }
+
+
+        .timer-inputs input:focus {
+            border-color: #43b7eb;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    67,
+                    183,
+                    235,
+                    0.12
+                );
+        }
+
+
+        .timer-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .start-btn {
+            background: #3aaa6b;
+
+            color: white;
+        }
+
+
+        .start-btn:hover {
+            background: #278b54;
+        }
+
+
+        .pause-btn {
+            background: #e7a64b;
+
+            color: white;
+        }
+
+
+        .pause-btn:hover {
+            background: #d38c2c;
+        }
+
+
+        .reset-btn {
+            background: #78909c;
+
+            color: white;
+        }
+
+
+        .reset-btn:hover {
+            background: #607983;
+        }
+
+
+        /* =========================
+           TASK REMINDERS
+        ========================= */
+
+        .reminder-card {
+            border:
+                1px solid #d9edf7;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fbfeff,
+                    #f5fbfe
+                );
+
+            border-radius: 15px;
+
+            padding: 17px;
+
+            margin-bottom: 12px;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .reminder-card:hover {
+            transform:
+                translateY(-1px);
+
+            border-color: #b9e2f2;
+
+            box-shadow:
+                0 6px 16px
+                rgba(
+                    60,
+                    140,
+                    180,
+                    0.08
+                );
+        }
+
+
+        .reminder-card h3 {
+            color: #17324d;
+
+            font-size: 16px;
+
+            margin-bottom: 10px;
+
+            word-break: break-word;
+        }
+
+
+        .reminder-details {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+
+        .tag {
+            background: #e8f4f9;
+
+            color: #52748a;
+
+            padding: 6px 10px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+        }
+
+
+        .reminder-time {
+            background: #dff4ff;
+
+            color: #087db6;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           BUTTON BASE
+        ========================= */
+
+        button {
+            border: none;
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            padding: 10px 15px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        button:hover {
+            transform:
+                translateY(-1px);
+        }
+
+
+        button:active {
+            transform:
+                translateY(0);
+        }
+
+
+        button:focus-visible {
+            outline:
+                3px solid
+                rgba(
+                    67,
+                    183,
+                    235,
+                    0.25
+                );
+
+            outline-offset: 2px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            header {
+                flex-direction: column;
+
+                gap: 14px;
+
+                padding: 18px;
+            }
+
+
+            nav {
+                width: 100%;
+            }
+
+
+            .alarm-form {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .alarm-form .form-group:first-child {
+                grid-column:
+                    1 / -1;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .container {
+                width: 94%;
+
+                margin-top: 26px;
+            }
+
+
+            .intro h2 {
+                font-size: 29px;
+            }
+
+
+            .section {
+                padding: 19px;
+
+                border-radius: 17px;
+            }
+
+
+            .alarm-form {
+                grid-template-columns: 1fr;
+            }
+
+
+            .alarm-form .form-group:first-child {
+                grid-column: auto;
+            }
+
+
+            .alarm-card {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .alarm-actions {
+                width: 100%;
+            }
+
+
+            .alarm-actions button {
+                flex: 1;
+            }
+
+
+            .timer-display {
+                font-size: 45px;
+            }
+
+
+            .timer-buttons button {
+                flex: 1;
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            header {
+                padding: 15px 12px;
+            }
+
+
+            .logo {
+                font-size: 23px;
+            }
+
+
+            nav {
+                gap: 3px;
+            }
+
+
+            nav a {
+                padding: 7px 8px;
+
+                font-size: 12px;
+            }
+
+
+            .container {
+                width: 94%;
+
+                margin-top: 22px;
+            }
+
+
+            .intro h2 {
+                font-size: 26px;
+            }
+
+
+            .intro p {
+                font-size: 14px;
+            }
+
+
+            .alarm-time {
+                font-size: 24px;
+            }
+
+
+            .timer-display {
+                font-size: 40px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        ❄️ Frost Task
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Dashboard
+        </a>
+
+        <a href="weekly.html">
+            Weekly
+        </a>
+
+        <a href="finance.html">
+            Finance
+        </a>
+
+        <a href="savings.html">
+            Savings
+        </a>
+
+        <a href="work.html">
+            Work
+        </a>
+
+        <a
+            href="alerts.html"
+            class="active"
+        >
+            Alerts
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- INTRO -->
+
+    <div class="intro">
+
+        <h2>
+            🔔 Alerts & Reminders
+        </h2>
+
+        <p>
+            Manage your alarms, task reminders and focus timer.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         BROWSER NOTIFICATIONS
+    ========================== -->
+
+    <section class="section">
+
+        <h2>
+            🔔 Browser Notifications
+        </h2>
+
+
+        <div class="notification-box">
+
+            <div
+                class="notification-status"
+                id="notificationStatus"
+            >
+                Checking notification permission...
+            </div>
+
+
+            <button
+                type="button"
+                class="enable-btn"
+                onclick="
+                    requestNotificationPermission()
+                "
+            >
+                Enable Notifications
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ALARMS
+    ========================== -->
+
+    <section class="section">
+
+        <h2>
+            ⏰ My Alarms
+        </h2>
+
+
+        <div class="alarm-form">
+
+
+            <div class="form-group">
+
+                <label for="alarmName">
+                    Alarm Name
+                </label>
+
+                <input
+                    type="text"
+                    id="alarmName"
+                    placeholder="Example: Study Python"
+                    maxlength="100"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="alarmTime">
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="alarmTime"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="alarmRepeat">
+                    Repeat
+                </label>
+
+                <select
+                    id="alarmRepeat"
+                >
+
+                    <option value="daily">
+                        Every Day
+                    </option>
+
+                    <option value="once">
+                        One Time
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="add-alarm-btn"
+                onclick="addAlarm()"
+            >
+                + Add Alarm
+            </button>
+
+        </div>
+
+
+        <div
+            class="alarm-list"
+            id="alarmList"
+        ></div>
+
+    </section>
+
+
+    <!-- =========================
+         TASK REMINDERS
+    ========================== -->
+
+    <section class="section">
+
+        <h2>
+            📋 Task Reminders
+        </h2>
+
+
+        <div
+            id="taskReminders"
+        ></div>
+
+    </section>
+
+
+    <!-- =========================
+         FOCUS TIMER
+    ========================== -->
+
+    <section class="section timer">
+
+        <h2>
+            ⏱️ Focus Timer
+        </h2>
+
+
+        <div
+            class="timer-display"
+            id="timerDisplay"
+        >
+            25:00
+        </div>
+
+
+        <div class="timer-inputs">
+
+            <input
+                type="number"
+                id="timerMinutes"
+                value="25"
+                min="1"
+                max="999"
+            >
+
+            <span>
+                minutes
+            </span>
+
+        </div>
+
+
+        <div class="timer-buttons">
+
+            <button
+                type="button"
+                class="start-btn"
+                onclick="startTimer()"
+            >
+                ▶ Start
+            </button>
+
+
+            <button
+                type="button"
+                class="pause-btn"
+                onclick="pauseTimer()"
+            >
+                ⏸ Pause
+            </button>
+
+
+            <button
+                type="button"
+                class="reset-btn"
+                onclick="resetTimer()"
+            >
+                ↻ Reset
+            </button>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script>
+
+
+    /* ==================================================
+       NOTIFICATIONS
+    ================================================== */
+
+
+    function updateNotificationStatus() {
+
+        const status =
+            document.getElementById(
+                "notificationStatus"
+            );
+
+
+        if (
+            !("Notification" in window)
+        ) {
+
+            status.textContent =
+                "❌ Browser notifications are not supported.";
+
+            return;
+
+        }
+
+
+        if (
+            Notification.permission ===
+            "granted"
+        ) {
+
+            status.textContent =
+                "✅ Notifications are enabled.";
+
+        }
+
+        else if (
+            Notification.permission ===
+            "denied"
+        ) {
+
+            status.textContent =
+                "❌ Notifications are blocked.";
+
+        }
+
+        else {
+
+            status.textContent =
+                "🔔 Notifications are not enabled yet.";
+
+        }
+
+    }
+
+
+    function requestNotificationPermission() {
+
+        if (
+            !("Notification" in window)
+        ) {
+
+            alert(
+                "Your browser does not support notifications."
+            );
+
+            return;
+
+        }
+
+
+        Notification
+            .requestPermission()
+            .then(
+                permission => {
+
+                    updateNotificationStatus();
+
+
+                    if (
+                        permission ===
+                        "granted"
+                    ) {
+
+                        sendNotification(
+                            "❄️ Frost Task",
+                            "Notifications are enabled!"
+                        );
+
+                    }
+
+                }
+            )
+            .catch(
+                () => {
+
+                    updateNotificationStatus();
+
+                }
+            );
+
+    }
+
+
+    function sendNotification(
+        title,
+        message
+    ) {
+
+        if (
+            "Notification" in window &&
+            Notification.permission ===
+            "granted"
+        ) {
+
+            new Notification(
+                title,
+                {
+                    body: message
+                }
+            );
+
+        }
+
+    }
+
+
+    /* ==================================================
+       ALARMS
+    ================================================== */
+
+
+    let alarms =
+        JSON.parse(
+            localStorage.getItem(
+                "frostAlarms"
+            )
+        ) || [];
+
+
+    function saveAlarms() {
+
+        localStorage.setItem(
+            "frostAlarms",
+            JSON.stringify(
+                alarms
+            )
+        );
+
+    }
+
+
+    function addAlarm() {
+
+        const name =
+            document
+                .getElementById(
+                    "alarmName"
+                )
+                .value
+                .trim();
+
+
+        const time =
+            document
+                .getElementById(
+                    "alarmTime"
+                )
+                .value;
+
+
+        const repeat =
+            document
+                .getElementById(
+                    "alarmRepeat"
+                )
+                .value;
+
+
+        if (!name) {
+
+            alert(
+                "Please enter an alarm name."
+            );
+
+            return;
+
+        }
+
+
+        if (!time) {
+
+            alert(
+                "Please select an alarm time."
+            );
+
+            return;
+
+        }
+
+
+        const alarm = {
+
+            id:
+                Date.now(),
+
+            name:
+                name,
+
+            time:
+                time,
+
+            repeat:
+                repeat,
+
+            enabled:
+                true,
+
+            lastTriggered:
+                ""
+
+        };
+
+
+        alarms.push(
+            alarm
+        );
+
+
+        saveAlarms();
+
+        renderAlarms();
+
+
+        document.getElementById(
+            "alarmName"
+        ).value = "";
+
+
+        document.getElementById(
+            "alarmTime"
+        ).value = "";
+
+
+        document.getElementById(
+            "alarmRepeat"
+        ).value =
+            "daily";
+
+    }
+
+
+    function toggleAlarm(id) {
+
+        const alarm =
+            alarms.find(
+                item =>
+                    item.id === id
+            );
+
+
+        if (!alarm) {
+            return;
+        }
+
+
+        alarm.enabled =
+            !alarm.enabled;
+
+
+        saveAlarms();
+
+        renderAlarms();
+
+    }
+
+
+    function deleteAlarm(id) {
+
+        const confirmed =
+            confirm(
+                "Delete this alarm?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        alarms =
+            alarms.filter(
+                alarm =>
+                    alarm.id !== id
+            );
+
+
+        saveAlarms();
+
+        renderAlarms();
+
+    }
+
+
+    function formatAlarmTime(time) {
+
+        if (!time) {
+            return "--:--";
+        }
+
+
+        const parts =
+            time.split(":");
+
+
+        let hour =
+            parseInt(
+                parts[0],
+                10
+            );
+
+
+        const minute =
+            parts[1] || "00";
+
+
+        if (
+            Number.isNaN(hour)
+        ) {
+
+            return time;
+
+        }
+
+
+        const ampm =
+            hour >= 12
+                ? "PM"
+                : "AM";
+
+
+        hour =
+            hour % 12 || 12;
+
+
+        return (
+            hour +
+            ":" +
+            minute +
+            " " +
+            ampm
+        );
+
+    }
+
+
+    function renderAlarms() {
+
+        const container =
+            document.getElementById(
+                "alarmList"
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (
+            alarms.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    ⏰
+
+                    <br><br>
+
+                    No alarms yet.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        alarms.forEach(
+            alarm => {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "alarm-card";
+
+
+                if (
+                    !alarm.enabled
+                ) {
+
+                    card.classList.add(
+                        "disabled"
+                    );
+
+                }
+
+
+                const info =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                info.className =
+                    "alarm-info";
+
+
+                const name =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                name.className =
+                    "alarm-name";
+
+
+                name.textContent =
+                    alarm.enabled
+                        ? "⏰ " +
+                          alarm.name
+                        : "⏸ " +
+                          alarm.name;
+
+
+                const time =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                time.className =
+                    "alarm-time";
+
+
+                time.textContent =
+                    formatAlarmTime(
+                        alarm.time
+                    );
+
+
+                const type =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                type.className =
+                    "alarm-type";
+
+
+                type.textContent =
+                    alarm.repeat ===
+                    "daily"
+
+                        ? "🔁 Every Day"
+
+                        : "📅 One Time";
+
+
+                info.appendChild(
+                    name
+                );
+
+
+                info.appendChild(
+                    time
+                );
+
+
+                info.appendChild(
+                    type
+                );
+
+
+                const actions =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                actions.className =
+                    "alarm-actions";
+
+
+                const toggle =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                toggle.type =
+                    "button";
+
+
+                toggle.className =
+                    "toggle-btn";
+
+
+                if (
+                    !alarm.enabled
+                ) {
+
+                    toggle.classList.add(
+                        "off"
+                    );
+
+                }
+
+
+                toggle.textContent =
+                    alarm.enabled
+                        ? "ON"
+                        : "OFF";
+
+
+                toggle.onclick =
+                    function() {
+
+                        toggleAlarm(
+                            alarm.id
+                        );
+
+                    };
+
+
+                const deleteButton =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                deleteButton.type =
+                    "button";
+
+
+                deleteButton.className =
+                    "delete-btn";
+
+
+                deleteButton.textContent =
+                    "Delete";
+
+
+                deleteButton.onclick =
+                    function() {
+
+                        deleteAlarm(
+                            alarm.id
+                        );
+
+                    };
+
+
+                actions.appendChild(
+                    toggle
+                );
+
+
+                actions.appendChild(
+                    deleteButton
+                );
+
+
+                card.appendChild(
+                    info
+                );
+
+
+                card.appendChild(
+                    actions
+                );
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==================================================
+       LOCAL DATE
+    ================================================== */
+
+
+    function getLocalDateKey() {
+
+        const today =
+            new Date();
+
+
+        const year =
+            today.getFullYear();
+
+
+        const month =
+            String(
+                today.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const day =
+            String(
+                today.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        return (
+            year +
+            "-" +
+            month +
+            "-" +
+            day
+        );
+
+    }
+
+
+    /* ==================================================
+       ALARM CHECKER
+    ================================================== */
+
+
+    function checkAlarms() {
+
+        const now =
+            new Date();
+
+
+        const currentHour =
+            String(
+                now.getHours()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const currentMinute =
+            String(
+                now.getMinutes()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const currentTime =
+            currentHour +
+            ":" +
+            currentMinute;
+
+
+        const today =
+            getLocalDateKey();
+
+
+        alarms.forEach(
+            alarm => {
+
+                if (
+                    !alarm.enabled
+                ) {
+                    return;
+                }
+
+
+                if (
+                    alarm.time !==
+                    currentTime
+                ) {
+                    return;
+                }
+
+
+                const triggerKey =
+                    today +
+                    "-" +
+                    alarm.id +
+                    "-" +
+                    currentTime;
+
+
+                const storageKey =
+                    "alarm-" +
+                    alarm.id;
+
+
+                const alreadyTriggered =
+                    localStorage.getItem(
+                        storageKey
+                    );
+
+
+                if (
+                    alreadyTriggered ===
+                    triggerKey
+                ) {
+
+                    return;
+
+                }
+
+
+                sendNotification(
+                    "⏰ " +
+                    alarm.name,
+
+                    "Your Frost Task alarm is ringing."
+                );
+
+
+                alert(
+                    "⏰ " +
+                    alarm.name
+                );
+
+
+                localStorage.setItem(
+                    storageKey,
+                    triggerKey
+                );
+
+
+                if (
+                    alarm.repeat ===
+                    "once"
+                ) {
+
+                    alarm.enabled =
+                        false;
+
+
+                    saveAlarms();
+
+                    renderAlarms();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ==================================================
+       TASK REMINDERS
+    ================================================== */
+
+
+    let tasks =
+        JSON.parse(
+            localStorage.getItem(
+                "frostTasks"
+            )
+        ) || {};
+
+
+    function getTodayKey() {
+
+        return getLocalDateKey();
+
+    }
+
+
+    function formatDate(
+        dateString
+    ) {
+
+        const date =
+            new Date(
+                dateString +
+                "T00:00:00"
+            );
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "Invalid date";
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "numeric",
+
+                month: "short",
+
+                year: "numeric"
+            }
+        );
+
+    }
+
+
+    function loadTaskReminders() {
+
+        const container =
+            document.getElementById(
+                "taskReminders"
+            );
+
+
+        container.innerHTML = "";
+
+
+        let count = 0;
+
+
+        Object.keys(tasks)
+            .sort()
+            .forEach(
+                dateKey => {
+
+                    const dayTasks =
+                        Array.isArray(
+                            tasks[dateKey]
+                        )
+                            ? tasks[
+                                dateKey
+                            ]
+                            : [];
+
+
+                    dayTasks.forEach(
+                        task => {
+
+                            if (
+                                !task.reminder
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            count++;
+
+
+                            const card =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            card.className =
+                                "reminder-card";
+
+
+                            const title =
+                                document.createElement(
+                                    "h3"
+                                );
+
+
+                            title.textContent =
+                                task.completed
+                                    ? "✓ " +
+                                      task.name
+                                    : "🔔 " +
+                                      task.name;
+
+
+                            const details =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            details.className =
+                                "reminder-details";
+
+
+                            const dateTag =
+                                document.createElement(
+                                    "span"
+                                );
+
+
+                            dateTag.className =
+                                "tag";
+
+
+                            dateTag.textContent =
+                                "📅 " +
+                                formatDate(
+                                    dateKey
+                                );
+
+
+                            const timeTag =
+                                document.createElement(
+                                    "span"
+                                );
+
+
+                            timeTag.className =
+                                "tag reminder-time";
+
+
+                            timeTag.textContent =
+                                "⏰ " +
+                                task.reminder;
+
+
+                            details.appendChild(
+                                dateTag
+                            );
+
+
+                            details.appendChild(
+                                timeTag
+                            );
+
+
+                            card.appendChild(
+                                title
+                            );
+
+
+                            card.appendChild(
+                                details
+                            );
+
+
+                            container.appendChild(
+                                card
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        if (
+            count === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    🔔
+
+                    <br><br>
+
+                    No task reminders yet.
+
+                    <br><br>
+
+                    Add a reminder from Dashboard.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* ==================================================
+       TASK REMINDER CHECKER
+    ================================================== */
+
+
+    let notifiedReminders =
+        JSON.parse(
+            localStorage.getItem(
+                "frostNotifiedReminders"
+            )
+        ) || {};
+
+
+    function checkTaskReminders() {
+
+        const now =
+            new Date();
+
+
+        const dateKey =
+            getTodayKey();
+
+
+        const todayTasks =
+            Array.isArray(
+                tasks[dateKey]
+            )
+                ? tasks[dateKey]
+                : [];
+
+
+        const hour =
+            String(
+                now.getHours()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const minute =
+            String(
+                now.getMinutes()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const currentTime =
+            hour +
+            ":" +
+            minute;
+
+
+        todayTasks.forEach(
+            (
+                task,
+                index
+            ) => {
+
+                if (
+                    !task.reminder ||
+                    task.completed
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    task.reminder !==
+                    currentTime
+                ) {
+
+                    return;
+
+                }
+
+
+                const key =
+                    dateKey +
+                    "-" +
+                    index +
+                    "-" +
+                    task.reminder;
+
+
+                if (
+                    notifiedReminders[key]
+                ) {
+
+                    return;
+
+                }
+
+
+                sendNotification(
+                    "🔔 Frost Task Reminder",
+                    task.name
+                );
+
+
+                alert(
+                    "🔔 Reminder: " +
+                    task.name
+                );
+
+
+                notifiedReminders[key] =
+                    true;
+
+
+                localStorage.setItem(
+                    "frostNotifiedReminders",
+                    JSON.stringify(
+                        notifiedReminders
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==================================================
+       FOCUS TIMER
+    ================================================== */
+
+
+    let timerSeconds =
+        25 * 60;
+
+
+    let timerInterval =
+        null;
+
+
+    function updateTimerDisplay() {
+
+        const minutes =
+            Math.floor(
+                timerSeconds / 60
+            );
+
+
+        const seconds =
+            timerSeconds % 60;
+
+
+        document.getElementById(
+            "timerDisplay"
+        ).textContent =
+
+            String(
+                minutes
+            ).padStart(
+                2,
+                "0"
+            ) +
+
+            ":" +
+
+            String(
+                seconds
+            ).padStart(
+                2,
+                "0"
+            );
+
+    }
+
+
+    function startTimer() {
+
+        if (
+            timerInterval !== null
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            timerSeconds <= 0
+        ) {
+
+            resetTimer();
+
+        }
+
+
+        timerInterval =
+            setInterval(
+                function() {
+
+                    if (
+                        timerSeconds > 0
+                    ) {
+
+                        timerSeconds--;
+
+                        updateTimerDisplay();
+
+                    }
+
+                    else {
+
+                        pauseTimer();
+
+
+                        sendNotification(
+                            "⏱️ Frost Timer",
+                            "Your timer is complete!"
+                        );
+
+
+                        alert(
+                            "⏱️ Timer complete!"
+                        );
+
+                    }
+
+                },
+                1000
+            );
+
+    }
+
+
+    function pauseTimer() {
+
+        if (
+            timerInterval !== null
+        ) {
+
+            clearInterval(
+                timerInterval
+            );
+
+
+            timerInterval =
+                null;
+
+        }
+
+    }
+
+
+    function resetTimer() {
+
+        pauseTimer();
+
+
+        let minutes =
+            parseInt(
+                document.getElementById(
+                    "timerMinutes"
+                ).value,
+                10
+            );
+
+
+        if (
+            Number.isNaN(minutes) ||
+            minutes < 1
+        ) {
+
+            minutes = 25;
+
+        }
+
+
+        if (
+            minutes > 999
+        ) {
+
+            minutes = 999;
+
+        }
+
+
+        document.getElementById(
+            "timerMinutes"
+        ).value =
+            minutes;
+
+
+        timerSeconds =
+            minutes * 60;
+
+
+        updateTimerDisplay();
+
+    }
+
+
+    document.getElementById(
+        "timerMinutes"
+    ).addEventListener(
+        "change",
+        function() {
+
+            if (
+                timerInterval ===
+                null
+            ) {
+
+                resetTimer();
+
+            }
+
+        }
+    );
+
+
+    /* ==================================================
+       STORAGE UPDATE
+    ================================================== */
+
+
+    window.addEventListener(
+        "storage",
+        function(event) {
+
+            if (
+                event.key ===
+                "frostTasks"
+            ) {
+
+                tasks =
+                    JSON.parse(
+                        event.newValue
+                    ) || {};
+
+
+                loadTaskReminders();
+
+            }
+
+
+            if (
+                event.key ===
+                "frostAlarms"
+            ) {
+
+                alarms =
+                    JSON.parse(
+                        event.newValue
+                    ) || [];
+
+
+                renderAlarms();
+
+            }
+
+        }
+    );
+
+
+    /* ==================================================
+       INITIAL LOAD
+    ================================================== */
+
+    updateNotificationStatus();
+
+    renderAlarms();
+
+    loadTaskReminders();
+
+    updateTimerDisplay();
+
+
+    /* ==================================================
+       CHECK EVERY SECOND
+    ================================================== */
+
+    setInterval(
+        checkAlarms,
+        1000
+    );
+
+
+    setInterval(
+        checkTaskReminders,
+        1000
+    );
+
+</script>
+
+</body>
+
+</html>
+
